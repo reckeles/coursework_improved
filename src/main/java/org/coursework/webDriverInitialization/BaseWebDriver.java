@@ -1,4 +1,4 @@
-package org.coursework.testbed;
+package org.coursework.webDriverInitialization;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,7 +9,8 @@ import java.util.Map;
 
 import static org.coursework.utils.PropertyUtil.getProperty;
 
-abstract public class BaseTestbed {
+abstract public class BaseWebDriver {
+    //TODO - move configs to BrowserConfig in config folder
     private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
     protected final String WEB_BROWSER = getProperty("browser", "chrome");
 

@@ -17,11 +17,11 @@ public class EnvConfig extends BaseConfig {
     public static final Param JSONRPC_VERSION = new Param("api.jsonrpc.version", "2.0", true, getEnvProperties(env));
     public static final Param ADMIN_USERNAME = new Param("admin.username", "admin", true, getEnvProperties(env));
     public static final Param ADMIN_PASSWORD = new Param("admin.password", "admin", true, getEnvProperties(env));
-    public static final Param SELENIUM_GRID_CHROME_HOST = new Param("selenium.grid.chrome.host", "localhost", true, getEnvProperties(env));
-    public static final Param SELENIUM_GRID_CHROME_PORT = new Param("selenium.grid.chrome.port", "4444", true, getEnvProperties(env));
-    public static final Param SELENIUM_GRID_FIREFOX_HOST = new Param("selenium.grid.firefox.host", "localhost", true, getEnvProperties(env));
-    public static final Param SELENIUM_GRID_FIREFOX_PORT = new Param("selenium.grid.firefox.port", "4445", true, getEnvProperties(env));
-    public static final Param TESTBED = new Param("testbed", "local", true, getEnvProperties(env));
+    public static final Param SELENIUM_CI_CHROME_HOST = new Param("selenium.chrome.host", "localhost", true, getEnvProperties(env));
+    public static final Param SELENIUM_CI_CHROME_PORT = new Param("selenium.chrome.port", "4444", true, getEnvProperties(env));
+    public static final Param SELENIUM_CI_FIREFOX_HOST = new Param("selenium.firefox.host", "localhost", true, getEnvProperties(env));
+    public static final Param SELENIUM_CI_FIREFOX_PORT = new Param("selenium.firefox.port", "4445", true, getEnvProperties(env));
+    public static final Param ENV_NAME = new Param("env", "local", true, getEnvProperties(env));
 
     private static Properties envProperties;
 

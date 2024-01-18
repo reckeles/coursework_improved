@@ -1,12 +1,11 @@
-package org.coursework.testbed;
+package org.coursework.webDriverInitialization;
 
-import org.coursework.config.EnvConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
-public class TestbedLocal extends BaseTestbed {
+public class LocalWebDriver extends BaseWebDriver {
     @Override
     public WebDriver createDriver() {
         WebDriver driver;
