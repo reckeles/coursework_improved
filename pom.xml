@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.coursework</groupId>
-    <artifactId>coursework</artifactId>
+    <artifactId>coursework_improved</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>7.7.1</testng.version>
         <selenium.version>4.12.1</selenium.version>
@@ -22,7 +22,7 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <org.projectlombok.version>1.18.28</org.projectlombok.version>
+        <org.projectlombok.version>1.18.30</org.projectlombok.version>
     </properties>
 
     <dependencies>

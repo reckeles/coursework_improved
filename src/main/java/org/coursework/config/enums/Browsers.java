@@ -1,10 +1,10 @@
 package org.coursework.config.enums;
 
-public enum Environment {
-    LOCAL,
-    CI;
+public enum Browsers {
+    CHROME,
+    FIREFOX;
 
-    public String getEnvName() {
+    public String getName() {
         return this.name().toLowerCase();
     }
 }

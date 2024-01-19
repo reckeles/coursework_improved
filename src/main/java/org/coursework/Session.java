@@ -1,15 +1,15 @@
 package org.coursework;
 
 import org.coursework.config.EnvConfig;
-import org.coursework.testbed.BaseTestbed;
-import org.coursework.testbed.TestbedGrid;
-import org.coursework.testbed.TestbedLocal;
+import org.coursework.webDriverInitialization.BaseWebDriver;
+import org.coursework.webDriverInitialization.CIWebDriver;
+import org.coursework.webDriverInitialization.LocalWebDriver;
 import org.openqa.selenium.WebDriver;
 
 public class Session {
     static final private ThreadLocal<Session> _instance = new ThreadLocal<>();
 
-    private BaseTestbed _testbed;
+    private BaseWebDriver _baseWebDriver;
     private WebDriver _webdriver;
 
     static public Session get() {
@@ -20,14 +20,15 @@ public class Session {
 
     public WebDriver webdriver() {
         if (this._webdriver == null) {
-            if ("local".equalsIgnoreCase(EnvConfig.TESTBED.value)) {
-                this._testbed = new TestbedLocal();
-            } else if ("grid".equalsIgnoreCase(EnvConfig.TESTBED.value)) {
-                this._testbed = new TestbedGrid();
-            } else
-                throw new RuntimeException("Unsupported testbed: " + EnvConfig.TESTBED.value);
+            if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
+                this._baseWebDriver = new LocalWebDriver();
+            } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
+                this._baseWebDriver = new CIWebDriver();
+            } else {
+                throw new RuntimeException("Unsupported testbed: " + EnvConfig.ENV_NAME.value);
+            }
 
-            this._webdriver = this._testbed.createDriver();
+            this._webdriver = this._baseWebDriver.createDriver();
             this._webdriver.manage().window().maximize();
         }
 
