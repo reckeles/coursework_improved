@@ -11,6 +11,7 @@ services:
       - kanboard_ssl:/etc/nginx/ssl
     environment:
       DATABASE_URL: mysql://kanboard:kanboard-secret@db/kanboard
+
   db:
     image: mariadb:latest
     ports:
@@ -41,6 +42,7 @@ services:
       - default
 
   selenium-chrome:
+    platform: linux/amd64
     image: "selenium/standalone-chrome:latest"
     container_name: "selenium-chrome"
     ports:
@@ -49,18 +51,37 @@ services:
     networks:
       - default
 
-  selenium-firefox:
-    image: "selenium/standalone-firefox:latest"
-    container_name: "selenium-firefox"
+  selenium-chromium:
+    image: "seleniarm/standalone-chromium:latest"
+    container_name: "selenium-chromium"
+    ports:
+      - 4446:4446
+      - 7902:7902
+    networks:
+      - default
+
+  selenium-firefox-arm:
+    image: "seleniarm/standalone-firefox:120.0"
+    container_name: "selenium-firefox-arm"
     ports:
       - 4445:4445
       - 7901:7901
     networks:
       - default
 
-  volumes:
-    kanboard_data:
-    kanboard_plugins:
-    kanboard_ssl:
-    db:
-    jenkins:
+# works only for amd
+#  selenium-firefox:
+#    image: "selenium/standalone-firefox:latest"
+#    container_name: "selenium-firefox"
+#    ports:
+#      - 4445:4445
+#      - 7901:7901
+#    networks:
+#      - default
+
+volumes:
+  kanboard_data:
+  kanboard_plugins:
+  kanboard_ssl:
+  db:
+  jenkins:

@@ -39,6 +39,4 @@ build/
 
 .idea/
 
-docker/
-
 .allure/
