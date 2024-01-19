@@ -7,12 +7,13 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.coursework.config.BrowserConfig.HEADLESS_FLAG;
 import static org.coursework.utils.PropertyUtil.getProperty;
 
 abstract public class BaseWebDriver {
     //TODO - move configs to BrowserConfig in config folder
-    private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
-    protected final String WEB_BROWSER = getProperty("browser", "chrome");
+//    private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
+//    protected final String WEB_BROWSER = getProperty("browser", "chrome");
 
     protected final ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();

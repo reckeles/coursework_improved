@@ -13,20 +13,22 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.coursework.config.BrowserConfig.WEB_BROWSER;
+
 public class CIWebDriver extends BaseWebDriver {
     @Override
     public WebDriver createDriver() {
         String host;
         String port;
         DesiredCapabilities caps = new DesiredCapabilities();
-        if ("chrome".equalsIgnoreCase(WEB_BROWSER)) {
+        if ("chrome".equalsIgnoreCase(WEB_BROWSER.getName())) {
             host = EnvConfig.SELENIUM_CI_CHROME_HOST.value;
             port = EnvConfig.SELENIUM_CI_CHROME_PORT.value;
             caps.setCapability(ChromeOptions.CAPABILITY, this.getCommonChromeOptions());
             caps.setCapability(CapabilityType.BROWSER_NAME, Browser.CHROME.browserName());
             caps.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
 
-        } else if ("firefox".equalsIgnoreCase(WEB_BROWSER)) {
+        } else if ("firefox".equalsIgnoreCase(WEB_BROWSER.getName())) {
             host = EnvConfig.SELENIUM_CI_FIREFOX_HOST.value;
             port = EnvConfig.SELENIUM_CI_FIREFOX_PORT.value;
             caps.setCapability(FirefoxOptions.FIREFOX_OPTIONS, this.getCommonFirefoxOptions());
