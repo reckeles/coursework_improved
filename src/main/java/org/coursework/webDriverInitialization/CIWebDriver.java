@@ -37,13 +37,14 @@ public class CIWebDriver extends BaseWebDriver {
         } else
             throw new RuntimeException("Unsupported browser: " + WEB_BROWSER);
 
-        String hubUrl = "http://" + host + ":" + port + "/wd/hub";
+//        String hubUrl = "http://" + host + ":" + port + "/wd/hub";
+        String gridUrl = "http://" + host + ":" + port;
 
         try {
-            URL url = new URL(hubUrl);
+            URL url = new URL(gridUrl);
             return new RemoteWebDriver(url, caps);
         } catch (MalformedURLException e) {
-            throw new RuntimeException("URL is not valid: " + hubUrl, e);
+            throw new RuntimeException("URL is not valid: " + gridUrl, e);
         }
     }
 }
