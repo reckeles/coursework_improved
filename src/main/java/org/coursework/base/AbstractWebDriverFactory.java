@@ -8,9 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.coursework.config.BrowserConfig.HEADLESS_FLAG;
-import static org.coursework.utils.PropertyUtil.getProperty;
 
-abstract public class BaseWebDriver {
+abstract public class AbstractWebDriverFactory {
 
     protected final ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();
@@ -42,5 +41,5 @@ abstract public class BaseWebDriver {
         return options;
     }
 
-    abstract public WebDriver createDriver();
+    abstract public WebDriver createWebDriver();
 }

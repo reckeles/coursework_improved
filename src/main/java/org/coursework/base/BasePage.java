@@ -36,7 +36,7 @@ abstract public class BasePage {
     abstract protected SelenideElement readyElement();
 
     protected WebDriver wd() {
-        return Session.get().webdriver();
+        return Session.get().getWebDriver();
     }
 
     protected Boolean customConfirm() {

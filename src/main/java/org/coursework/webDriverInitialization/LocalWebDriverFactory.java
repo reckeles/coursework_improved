@@ -1,6 +1,6 @@
 package org.coursework.webDriverInitialization;
 
-import org.coursework.base.BaseWebDriver;
+import org.coursework.base.AbstractWebDriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -8,9 +8,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import static org.coursework.config.BrowserConfig.WEB_BROWSER;
 
 
-public class LocalWebDriver extends BaseWebDriver {
+public class LocalWebDriverFactory extends AbstractWebDriverFactory {
     @Override
-    public WebDriver createDriver() {
+    public WebDriver createWebDriver() {
         WebDriver driver;
         if ("chrome".equalsIgnoreCase(WEB_BROWSER.getName())) {
             driver = new ChromeDriver(this.getCommonChromeOptions());

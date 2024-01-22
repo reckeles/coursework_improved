@@ -1,44 +1,48 @@
 package org.coursework;
 
+import org.coursework.base.AbstractWebDriverFactory;
 import org.coursework.config.EnvConfig;
-import org.coursework.base.BaseWebDriver;
-import org.coursework.webDriverInitialization.GridWebDriver;
-import org.coursework.webDriverInitialization.LocalWebDriver;
+import org.coursework.webDriverInitialization.GridWebDriverFactory;
+import org.coursework.webDriverInitialization.LocalWebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
 public class Session {
-    static final private ThreadLocal<Session> _instance = new ThreadLocal<>();
+    private static final ThreadLocal<Session> INSTANCE = new ThreadLocal<>();
 
-    private BaseWebDriver _baseWebDriver;
-    private WebDriver _webdriver;
+    private AbstractWebDriverFactory webDriverFactory;
+    private WebDriver webDriver;
 
-    static public Session get() {
-        if (_instance.get() == null)
-            _instance.set(new Session());
-        return _instance.get();
+    public static Session get() {
+        if (INSTANCE.get() == null) {
+            INSTANCE.set(new Session());
+        }
+        return INSTANCE.get();
     }
 
-    public WebDriver webdriver() {
-        if (this._webdriver == null) {
-            if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-                this._baseWebDriver = new LocalWebDriver();
-            } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-                this._baseWebDriver = new GridWebDriver();
-            } else {
-                throw new RuntimeException("Unsupported env: " + EnvConfig.ENV_NAME.value);
-            }
+    public WebDriver getWebDriver() {
+        if (this.webDriver == null) {
+            setupWebDriver();
+        }
+        return this.webDriver;
+    }
 
-            this._webdriver = this._baseWebDriver.createDriver();
-            this._webdriver.manage().window().maximize();
+    private void setupWebDriver() {
+        if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
+            this.webDriverFactory = new LocalWebDriverFactory();
+        } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
+            this.webDriverFactory = new GridWebDriverFactory();
+        } else {
+            throw new RuntimeException("Unsupported env: " + EnvConfig.ENV_NAME.value);
         }
 
-        return this._webdriver;
+        this.webDriver = this.webDriverFactory.createWebDriver();
+        this.webDriver.manage().window().maximize();
     }
 
     public void close() {
-        if (this._webdriver != null) {
-            this._webdriver.quit();
-            this._webdriver = null;
+        if (this.webDriver != null) {
+            this.webDriver.quit();
+            this.webDriver = null;
         }
     }
 
