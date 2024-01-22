@@ -21,28 +21,28 @@ public class LoginTest extends BaseGUITest {
         setWebDriver();
     }
 
-    @Test(groups = {"authflow", "UI", "smoke", "regression"})
+    @Test(groups = {"authflow", "UI", "smoke_UI"})
     public void loginValidUser() {
         LoginPage loginPage = new LoginPage();
         DashboardPage dashboardPage = loginPage.login(user.getUsername(), user.getPassword());
         dashboardPage.searchVisible();
     }
 
-    @Test(groups = {"authflow", "UI", "regression"})
+    @Test(groups = {"authflow", "UI"})
     public void loginEmptyUsernameField() {
         LoginPage loginPage = new LoginPage();
         loginPage.loginWithoutPassword(user.getUsername());
         loginPage.usernameIsRequired();
     }
 
-    @Test(groups = {"authflow", "UI", "regression"})
+    @Test(groups = {"authflow", "UI"})
     public void loginEmptyPasswordField() {
         LoginPage loginPage = new LoginPage();
         loginPage.loginWithoutUsername(user.getPassword());
         loginPage.passwordIsRequired();
     }
 
-    @Test(groups = {"authflow", "UI", "smoke", "regression"})
+    @Test(groups = {"authflow", "UI", "smoke_UI"})
     public void loginWithInvalidPassword() {
         LoginPage loginPage = new LoginPage();
         loginPage.login(user.getUsername(), getRandomStr());

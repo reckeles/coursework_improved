@@ -32,7 +32,7 @@ public class CloseTaskTest extends BaseGUITest {
         login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression"})
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI"})
     public void closeTask() {
         TaskPage taskPage = new TaskPage();
         taskPage.setTaskId(task.getId());

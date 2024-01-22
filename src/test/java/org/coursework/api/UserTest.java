@@ -10,7 +10,7 @@ import static org.coursework.api.procedures.UserProcedures.*;
 import static org.coursework.utils.TestData.generateDefaultUserData;
 
 public class UserTest extends BaseAPITest {
-    @Test(groups = {"CRUD_user_API", "API", "smoke", "regression"})
+    @Test(groups = {"CRUD_user_API", "API", "smoke_API"})
     public void userFlow() {
         User user = createUser(generateDefaultUserData(), ADMIN);
 

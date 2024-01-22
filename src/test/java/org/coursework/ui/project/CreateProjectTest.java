@@ -27,7 +27,7 @@ public class CreateProjectTest extends BaseGUITest {
         login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = {"CRUD_project_UI", "UI", "smoke", "regression"})
+    @Test(groups = {"CRUD_project_UI", "UI", "smoke_UI"})
     public void createProject() {
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.openPage();

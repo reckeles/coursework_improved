@@ -32,7 +32,7 @@ public class CommentsTaskTest extends BaseGUITest {
         login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression"})
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI"})
     public void addCommentViaModalWindow() {
         TaskPage taskPage = new TaskPage();
         taskPage.setTaskId(task.getId());
@@ -49,7 +49,7 @@ public class CommentsTaskTest extends BaseGUITest {
         //TODO add assertion for dates in comment
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "regression"})
+    @Test(groups = {"CRUD_task_UI", "UI"})
     public void addCommentViaFormOnTaskPage() {
         TaskPage taskPage = new TaskPage();
         taskPage.setTaskId(task.getId());

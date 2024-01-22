@@ -25,7 +25,7 @@ public class TaskTest extends BaseAPITest {
         project = createProject(generateProjectWithOwnerData(user.getId()), user);
     }
 
-    @Test(groups = {"CRUD_task_API", "API", "smoke", "regression"})
+    @Test(groups = {"CRUD_task_API", "API", "smoke_API"})
     public void taskFlow() {
         Task task = createTask(generateDefaultTaskData(project.getId()), user);
 

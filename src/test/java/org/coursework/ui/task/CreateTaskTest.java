@@ -29,7 +29,7 @@ public class CreateTaskTest extends BaseGUITest {
         login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression", "single"})
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI", "single"})
     public void createTask() {
         BoardPage boardPage = new BoardPage();
         boardPage.setProjectId(project.getId());
