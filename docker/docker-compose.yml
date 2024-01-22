@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   kanboard:
     image: kanboard/kanboard:latest
@@ -38,46 +38,26 @@ services:
       - 8.8.4.4
     ports:
       - 8080:8080
-    networks:
-      - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
-  selenium-chrome:
-    platform: linux/amd64
-    image: "selenium/standalone-chrome:latest"
-    container_name: "selenium-chrome"
-    ports:
-      - 4444:4444
-      - 7900:7900
-    networks:
-      - default
-
-  selenium-chromium:
+  chromium-arm:
     image: "seleniarm/standalone-chromium:latest"
-    container_name: "selenium-chromium"
+    container_name: "chromium-arm"
     ports:
-      - 4446:4446
-      - 7902:7902
-    networks:
-      - default
+      - 4446:4444
+      - 7902:7900
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
-  selenium-firefox-arm:
-    image: "seleniarm/standalone-firefox:120.0"
-    container_name: "selenium-firefox-arm"
+  firefox-arm:
+    image: "seleniarm/standalone-firefox:latest"
+    container_name: "firefox-arm"
     ports:
-      - 4445:4445
-      - 7901:7901
-    networks:
-      - default
-
-# works only for amd
-#  selenium-firefox:
-#    image: "selenium/standalone-firefox:latest"
-#    container_name: "selenium-firefox"
-#    ports:
-#      - 4445:4445
-#      - 7901:7901
-#    networks:
-#      - default
+      - 4445:4444
+      - 7901:7900
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   kanboard_data:

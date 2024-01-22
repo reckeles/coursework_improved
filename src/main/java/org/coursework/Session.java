@@ -2,7 +2,7 @@ package org.coursework;
 
 import org.coursework.config.EnvConfig;
 import org.coursework.webDriverInitialization.BaseWebDriver;
-import org.coursework.webDriverInitialization.CIWebDriver;
+import org.coursework.webDriverInitialization.GridWebDriver;
 import org.coursework.webDriverInitialization.LocalWebDriver;
 import org.openqa.selenium.WebDriver;
 
@@ -23,9 +23,9 @@ public class Session {
             if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
                 this._baseWebDriver = new LocalWebDriver();
             } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-                this._baseWebDriver = new CIWebDriver();
+                this._baseWebDriver = new GridWebDriver();
             } else {
-                throw new RuntimeException("Unsupported testbed: " + EnvConfig.ENV_NAME.value);
+                throw new RuntimeException("Unsupported env: " + EnvConfig.ENV_NAME.value);
             }
 
             this._webdriver = this._baseWebDriver.createDriver();

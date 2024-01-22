@@ -1,6 +1,7 @@
 package org.coursework.config.enums;
 
 public enum Browsers {
+    CHROMIUM,
     CHROME,
     FIREFOX;
 
