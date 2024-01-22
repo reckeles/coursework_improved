@@ -20,7 +20,7 @@ public class EnvConfig extends BaseConfig {
     public static final Param SELENIARM_STANDALONE_CHROMIUM_HOST = new Param("seleniarm.chromium.host", "localhost", true, getEnvProperties(env));
     public static final Param SELENIARM_STANDALONE_CHROMIUM_PORT = new Param("seleniarm.chromium.port", "4444", true, getEnvProperties(env));
     public static final Param SELENIARM_STANDALONE_FIREFOX_HOST = new Param("seleniarm.firefox.host", "localhost", true, getEnvProperties(env));
-    public static final Param SELENIARM_STANDALONE_FIREFOX_PORT = new Param("seleniarm.firefox.port", "4445", true, getEnvProperties(env));
+    public static final Param SELENIARM_STANDALONE_FIREFOX_PORT = new Param("seleniarm.firefox.port", "4444", true, getEnvProperties(env));
     public static final Param ENV_NAME = new Param("env", "local", true, getEnvProperties(env));
 
     private static Properties envProperties;
