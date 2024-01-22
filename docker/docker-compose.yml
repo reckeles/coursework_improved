@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   kanboard:
     image: kanboard/kanboard:latest
@@ -11,6 +11,7 @@ services:
       - kanboard_ssl:/etc/nginx/ssl
     environment:
       DATABASE_URL: mysql://kanboard:kanboard-secret@db/kanboard
+
   db:
     image: mariadb:latest
     ports:
@@ -37,30 +38,30 @@ services:
       - 8.8.4.4
     ports:
       - 8080:8080
-    networks:
-      - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
-  selenium-chrome:
-    image: "selenium/standalone-chrome:latest"
-    container_name: "selenium-chrome"
+  chromium-arm:
+    image: "seleniarm/standalone-chromium:latest"
+    container_name: "chromium-arm"
     ports:
-      - 4444:4444
-      - 7900:7900
-    networks:
-      - default
+      - 4446:4444
+      - 7902:7900
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
-  selenium-firefox:
-    image: "selenium/standalone-firefox:latest"
-    container_name: "selenium-firefox"
+  firefox-arm:
+    image: "seleniarm/standalone-firefox:latest"
+    container_name: "firefox-arm"
     ports:
-      - 4445:4445
-      - 7901:7901
-    networks:
-      - default
+      - 4445:4444
+      - 7901:7900
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
-  volumes:
-    kanboard_data:
-    kanboard_plugins:
-    kanboard_ssl:
-    db:
-    jenkins:
+volumes:
+  kanboard_data:
+  kanboard_plugins:
+  kanboard_ssl:
+  db:
+  jenkins:

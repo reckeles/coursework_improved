@@ -1,4 +1,4 @@
-package org.coursework.webDriverInitialization;
+package org.coursework.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,9 +11,6 @@ import static org.coursework.config.BrowserConfig.HEADLESS_FLAG;
 import static org.coursework.utils.PropertyUtil.getProperty;
 
 abstract public class BaseWebDriver {
-    //TODO - move configs to BrowserConfig in config folder
-//    private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
-//    protected final String WEB_BROWSER = getProperty("browser", "chrome");
 
     protected final ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();
