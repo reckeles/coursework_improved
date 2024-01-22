@@ -38,8 +38,12 @@ services:
       - 8.8.4.4
     ports:
       - 8080:8080
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    depends_on:
+      - chromium-arm
+      - firefox-arm
+    links:
+      - chromium-arm
+      - firefox-arm
 
   chromium-arm:
     image: "seleniarm/standalone-chromium:latest"
@@ -47,8 +51,6 @@ services:
     ports:
       - 4446:4444
       - 7902:7900
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   firefox-arm:
     image: "seleniarm/standalone-firefox:latest"
@@ -56,8 +58,6 @@ services:
     ports:
       - 4445:4444
       - 7901:7900
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
 volumes:
   kanboard_data:
