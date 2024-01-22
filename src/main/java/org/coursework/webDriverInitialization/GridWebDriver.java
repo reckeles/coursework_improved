@@ -1,5 +1,6 @@
 package org.coursework.webDriverInitialization;
 
+import org.coursework.base.BaseWebDriver;
 import org.coursework.config.EnvConfig;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;

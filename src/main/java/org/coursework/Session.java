@@ -1,7 +1,7 @@
 package org.coursework;
 
 import org.coursework.config.EnvConfig;
-import org.coursework.webDriverInitialization.BaseWebDriver;
+import org.coursework.base.BaseWebDriver;
 import org.coursework.webDriverInitialization.GridWebDriver;
 import org.coursework.webDriverInitialization.LocalWebDriver;
 import org.openqa.selenium.WebDriver;

@@ -1,5 +1,6 @@
 package org.coursework.webDriverInitialization;
 
+import org.coursework.base.BaseWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
