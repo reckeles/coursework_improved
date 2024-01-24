@@ -1,6 +1,6 @@
 package org.coursework.webDriverInitialization;
 
-import org.coursework.base.AbstractWebDriverFactory;
+import org.coursework.base.BaseWebDriverCreator;
 import org.coursework.config.EnvConfig;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +16,7 @@ import java.net.URL;
 
 import static org.coursework.config.BrowserConfig.WEB_BROWSER;
 
-public class GridWebDriverFactory extends AbstractWebDriverFactory {
+public class GridWebDriverCreator extends BaseWebDriverCreator {
     @Override
     public WebDriver createWebDriver() {
         String host;

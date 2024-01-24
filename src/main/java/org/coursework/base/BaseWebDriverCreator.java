@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.coursework.config.BrowserConfig.HEADLESS_FLAG;
 
-abstract public class AbstractWebDriverFactory {
+abstract public class BaseWebDriverCreator {
 
     protected final ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();
