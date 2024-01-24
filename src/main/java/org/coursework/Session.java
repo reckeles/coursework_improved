@@ -1,15 +1,15 @@
 package org.coursework;
 
-import org.coursework.base.AbstractWebDriverFactory;
+import org.coursework.base.BaseWebDriverCreator;
 import org.coursework.config.EnvConfig;
-import org.coursework.webDriverInitialization.GridWebDriverFactory;
-import org.coursework.webDriverInitialization.LocalWebDriverFactory;
+import org.coursework.webDriverInitialization.GridWebDriverCreator;
+import org.coursework.webDriverInitialization.LocalWebDriverCreator;
 import org.openqa.selenium.WebDriver;
 
 public class Session {
     private static final ThreadLocal<Session> INSTANCE = new ThreadLocal<>();
 
-    private AbstractWebDriverFactory webDriverFactory;
+    private BaseWebDriverCreator webDriverCreator;
     private WebDriver webDriver;
 
     public static Session get() {
@@ -28,14 +28,14 @@ public class Session {
 
     private void setupWebDriver() {
         if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-            this.webDriverFactory = new LocalWebDriverFactory();
+            this.webDriverCreator = new LocalWebDriverCreator();
         } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-            this.webDriverFactory = new GridWebDriverFactory();
+            this.webDriverCreator = new GridWebDriverCreator();
         } else {
             throw new RuntimeException("Unsupported env: " + EnvConfig.ENV_NAME.value);
         }
 
-        this.webDriver = this.webDriverFactory.createWebDriver();
+        this.webDriver = this.webDriverCreator.createWebDriver();
         this.webDriver.manage().window().maximize();
     }
 

@@ -1,6 +1,6 @@
 package org.coursework.webDriverInitialization;
 
-import org.coursework.base.AbstractWebDriverFactory;
+import org.coursework.base.BaseWebDriverCreator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -8,7 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import static org.coursework.config.BrowserConfig.WEB_BROWSER;
 
 
-public class LocalWebDriverFactory extends AbstractWebDriverFactory {
+public class LocalWebDriverCreator extends BaseWebDriverCreator {
     @Override
     public WebDriver createWebDriver() {
         WebDriver driver;
