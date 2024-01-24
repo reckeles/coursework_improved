@@ -5,35 +5,38 @@ import org.coursework.api.model.project.Project;
 import org.coursework.api.model.project.ProjectExtended;
 import org.coursework.api.model.user.User;
 import org.coursework.utils.FieldsHelper;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.coursework.api.procedures.ProjectProcedures.*;
 import static org.coursework.api.procedures.UserProcedures.*;
 import static org.coursework.utils.TestData.*;
 
 public class ProjectTest extends BaseAPITest {
-    User user;
+    private ThreadLocal<User> user = new ThreadLocal<>();
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void beforeTest() {
-        user = createUser(generateDefaultUserData(), ADMIN);
+        user.set(createUser(generateDefaultUserData(), ADMIN));
     }
 
     @Test(groups = {"CRUD_project_API", "API", "smoke_API"})
     public void projectFlow() {
-        Project project = createProject(generateProjectWithOwnerData(user.getId()), user);
+        var currentUser = user.get();
 
-        ProjectExtended projectInfo = getProjectById(project.getId(), user);
+        Project project = createProject(generateProjectWithOwnerData(currentUser.getId()), currentUser);
+
+        ProjectExtended projectInfo = getProjectById(project.getId(), currentUser);
         assertItemField(project.getName(), projectInfo.getName(), FieldsHelper.getProjectNameField());
 
-        boolean isProjectRemoved = removeProjectById(project.getId(), user);
+        boolean isProjectRemoved = removeProjectById(project.getId(), currentUser);
         itemRemovingRequestIsSuccessful(isProjectRemoved);
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void afterTest() {
-        removeUserById(user.getId(), ADMIN);
+        var currentUser = user.get();
+
+        removeUserById(currentUser.getId(), ADMIN);
+        user.remove();
     }
 }

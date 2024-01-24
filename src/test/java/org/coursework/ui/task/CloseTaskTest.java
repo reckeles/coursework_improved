@@ -18,24 +18,31 @@ import static org.coursework.api.procedures.UserProcedures.removeUserById;
 import static org.coursework.utils.TestData.*;
 
 public class CloseTaskTest extends BaseGUITest {
-    User user;
-    Project project;
-    Task task;
+    private ThreadLocal<User> user = new ThreadLocal<>();
+    private ThreadLocal<Project> project = new ThreadLocal<>();
+    private ThreadLocal<Task> task = new ThreadLocal<>();
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        user = createUser(generateDefaultUserData(), ADMIN);
-        project = createProject(generateProjectWithOwnerData(user.getId()), user);
-        task = createTask(generateDefaultTaskData(project.getId()), user);
+        user.set(createUser(generateDefaultUserData(), ADMIN));
+        var currentUser = user.get();
+
+        project.set(createProject(generateProjectWithOwnerData(currentUser.getId()), currentUser));
+        var currentProject = project.get();
+
+        task.set(createTask(generateDefaultTaskData(currentProject.getId()), currentUser));
 
         setWebDriver();
-        login(user.getUsername(), user.getPassword());
+
+        login(currentUser.getUsername(), currentUser.getPassword());
     }
 
     @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI"})
     public void closeTask() {
+        var currentTask = task.get();
+
         TaskPage taskPage = new TaskPage();
-        taskPage.setTaskId(task.getId());
+        taskPage.setTaskId(currentTask.getId());
         taskPage.openPage();
         CloseTaskModalWindow closeTaskModalWindow = taskPage.openCloseTaskModalWindow();
         taskPage = closeTaskModalWindow.confirmCloseAction();
@@ -44,11 +51,15 @@ public class CloseTaskTest extends BaseGUITest {
 
     @AfterMethod(alwaysRun = true)
     public void after() {
+        var currentProject = project.get();
+        var currentUser = user.get();
+
         closeWebDriver();
 
-        removeProjectById(project.getId(), user);
-        project = null;
-        removeUserById(user.getId(), ADMIN);
-        user = null;
+        removeProjectById(currentProject.getId(), currentUser);
+        project.remove();
+
+        removeUserById(currentUser.getId(), ADMIN);
+        user.remove();
     }
 }

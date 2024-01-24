@@ -6,8 +6,10 @@ import org.coursework.api.model.task.Task;
 import org.coursework.api.model.user.User;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TestData {
+    //TODO - move to enum
     private static final String ADMIN_ROLE = "app-admin";
     private static final String MANAGER_ROLE = "app-manager";
     private static final String USER_ROLE = "app-user";
@@ -53,12 +55,14 @@ public class TestData {
     }
 
     private static int getRandomInt() {
-        Random rand = new Random();
-        return rand.nextInt(100000);
+//        Random rand = new Random();
+//        return rand.nextInt(100000);
+        return ThreadLocalRandom.current().nextInt(100000);
     }
 
     private static int getRandomInt(int range) {
-        Random rand = new Random();
-        return rand.nextInt(range);
+//        Random rand = new Random();
+//        return rand.nextInt(range);
+        return ThreadLocalRandom.current().nextInt(range);
     }
 }
