@@ -23,6 +23,7 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
+        <org.springframework.retry>2.0.5</org.springframework.retry>
     </properties>
 
     <dependencies>
@@ -77,6 +78,11 @@
             <artifactId>lombok</artifactId>
             <version>${org.projectlombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>${org.springframework.retry}</version>
         </dependency>
     </dependencies>
     <build>
