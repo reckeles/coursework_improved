@@ -13,4 +13,5 @@ public class BaseAPIResponse<T> {
     private String jsonrpc;
     private long id;
     private T result;
+    private Object error;
 }
