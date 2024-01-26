@@ -24,31 +24,20 @@ public class CommentsTaskTest extends BaseGUITest {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-//        try {
             user.set(createUser(generateDefaultUserData(), ADMIN));
             var currentUser = user.get();
-            System.out.println(Thread.currentThread().getId() + "[debug]: user ok");
 
             project.set(createProject(generateProjectWithOwnerData(currentUser.getId()), currentUser));
             var currentProject = project.get();
-            System.out.println(Thread.currentThread().getId() + "[debug]: project ok");
 
             task.set(createTask(generateDefaultTaskData(currentProject.getId()), currentUser));
-            System.out.println(Thread.currentThread().getId() + "[debug]: task ok");
-
-            System.out.println("USER " + currentUser.getUsername() + "PROJECT " + currentProject.getId() + "TASK " + task.get().getTitle());
 
             setWebDriver();
 
             login(currentUser.getUsername(), currentUser.getPassword());
-            System.out.println(Thread.currentThread().getId() + "[debug]: ok");
-//        } catch (Exception e) {
-//            System.out.println(Thread.currentThread().getId() + "[debug]: exception occurred: " + e.getMessage());
-//            throw e;
-//        }
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI", "DEBUG"})
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI"})
     public void addCommentViaModalWindow() {
         var currentTask = task.get();
         var currentUser = user.get();
@@ -68,7 +57,7 @@ public class CommentsTaskTest extends BaseGUITest {
         //TODO add assertion for dates in comment
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "DEBUG"})
+    @Test(groups = {"CRUD_task_UI", "UI"})
     public void addCommentViaFormOnTaskPage() {
         var currentTask = task.get();
         var currentUser = user.get();

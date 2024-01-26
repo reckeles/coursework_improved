@@ -50,7 +50,6 @@ abstract public class APIUtil {
         BaseAPIRequestBody<V> requestBody = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
         return retryTemplate.execute(context -> {
-            System.out.println("Attempting...");
             Response response = RequestSender.sendRequest(requestBody, authorization);
             BaseAPIResponse<?> responseBody = response.getBody().as(BaseAPIResponse.class);
 
