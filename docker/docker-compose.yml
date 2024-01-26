@@ -48,6 +48,7 @@ services:
   chromium-arm:
     image: "seleniarm/standalone-chromium:latest"
     container_name: "chromium-arm"
+    shm_size: 2gb
     ports:
       - 4446:4444
       - 7902:7900
@@ -55,9 +56,11 @@ services:
   firefox-arm:
     image: "seleniarm/standalone-firefox:latest"
     container_name: "firefox-arm"
+    shm_size: 2gb
     ports:
       - 4445:4444
       - 7901:7900
+
 
 volumes:
   kanboard_data:

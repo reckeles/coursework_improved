@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" thread-count="8" parallel="methods">
+    <test name=".">
+        <classes>
+            <class name="org.coursework.api.ProjectTest"/>
+            <class name="org.coursework.api.TaskTest"/>
+            <class name="org.coursework.api.UserTest"/>
+            <class name="org.coursework.ui.login.LoginTest"/>
+            <class name="org.coursework.ui.project.CreateProjectTest"/>
+            <class name="org.coursework.ui.task.CloseTaskTest"/>
+            <class name="org.coursework.ui.task.CommentsTaskTest"/>
+            <class name="org.coursework.ui.task.CreateTaskTest"/>
+        </classes>
+    </test>
+</suite>

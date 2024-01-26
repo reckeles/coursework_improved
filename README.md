@@ -12,3 +12,4 @@ Options for test run
 4. ``-Dheadless``, default value ``TRUE``
 5. ``-Dtest={classname}#{testname}``, no default value 
 6. ``-Dgroups={groupname1},{groupname2},{groupnamen}``, no default value 
+7. ``-DsuiteXmlFile=testng.xml``, no default value. Option for running test in parallel

@@ -13,46 +13,58 @@ import static org.coursework.utils.TestData.getRandomStr;
 
 
 public class LoginTest extends BaseGUITest {
-    private User user;
+    private ThreadLocal<User> user = new ThreadLocal<>();
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        user = createUser(generateDefaultUserData(), ADMIN);
+        user.set(createUser(generateDefaultUserData(), ADMIN));
+
         setWebDriver();
     }
 
     @Test(groups = {"authflow", "UI", "smoke_UI"})
     public void loginValidUser() {
+        var currentUser = user.get();
+
         LoginPage loginPage = new LoginPage();
-        DashboardPage dashboardPage = loginPage.login(user.getUsername(), user.getPassword());
+        DashboardPage dashboardPage = loginPage.login(currentUser.getUsername(), currentUser.getPassword());
         dashboardPage.searchVisible();
     }
 
     @Test(groups = {"authflow", "UI"})
     public void loginEmptyUsernameField() {
+        var currentUser = user.get();
+
         LoginPage loginPage = new LoginPage();
-        loginPage.loginWithoutPassword(user.getUsername());
+        loginPage.loginWithoutPassword(currentUser.getUsername());
         loginPage.usernameIsRequired();
     }
 
     @Test(groups = {"authflow", "UI"})
     public void loginEmptyPasswordField() {
+        var currentUser = user.get();
+
         LoginPage loginPage = new LoginPage();
-        loginPage.loginWithoutUsername(user.getPassword());
+        loginPage.loginWithoutUsername(currentUser.getPassword());
         loginPage.passwordIsRequired();
     }
 
     @Test(groups = {"authflow", "UI", "smoke_UI"})
     public void loginWithInvalidPassword() {
+        var currentUser = user.get();
+
         LoginPage loginPage = new LoginPage();
-        loginPage.login(user.getUsername(), getRandomStr());
+        loginPage.login(currentUser.getUsername(), getRandomStr());
         loginPage.assertBadCredsAlertIsPresent();
     }
 
     @AfterMethod(alwaysRun = true)
     public void afterMethod() {
+        var currentUser = user.get();
+
         closeWebDriver();
-        removeUserById(user.getId(), ADMIN);
-        user = null;
+
+        removeUserById(currentUser.getId(), ADMIN);
+        user.remove();
     }
 }

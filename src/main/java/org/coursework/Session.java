@@ -6,7 +6,10 @@ import org.coursework.webDriverInitialization.GridWebDriverCreator;
 import org.coursework.webDriverInitialization.LocalWebDriverCreator;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
+
 public class Session {
+
     private static final ThreadLocal<Session> INSTANCE = new ThreadLocal<>();
 
     private BaseWebDriverCreator webDriverCreator;

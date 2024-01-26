@@ -16,15 +16,17 @@ import static org.coursework.utils.TestData.generateDefaultUserData;
 import static org.coursework.utils.TestData.getRandomStr;
 
 public class CreateProjectTest extends BaseGUITest {
-    private int projectId;
-    User user;
+    private ThreadLocal<User> user = new ThreadLocal<>();
+    private ThreadLocal<Integer> projectId = new ThreadLocal<>();
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        user = createUser(generateDefaultUserData(), ADMIN);
+        user.set(createUser(generateDefaultUserData(), ADMIN));
+        var currentUser = user.get();
 
         setWebDriver();
-        login(user.getUsername(), user.getPassword());
+
+        login(currentUser.getUsername(), currentUser.getPassword());
     }
 
     @Test(groups = {"CRUD_project_UI", "UI", "smoke_UI"})
@@ -35,16 +37,18 @@ public class CreateProjectTest extends BaseGUITest {
         ProjectPage projectPage = createProjectModalWindow.createProjectOnlyRequiredFields(getRandomStr());
         projectPage.confirmPageIsLoaded();
         projectPage.assertPageUrlIsRight();
-        projectId = projectPage.getProjectId();
+        projectId.set(projectPage.getProjectId());
     }
 
     @AfterMethod(alwaysRun = true)
     public void after() {
+        var currentUser = user.get();
+
         closeWebDriver();
 
-        removeProjectById(projectId, user);
+        removeProjectById(projectId.get(), currentUser);
 
-        removeUserById(user.getId(), ADMIN);
-        user = null;
+        removeUserById(currentUser.getId(), ADMIN);
+        user.remove();
     }
 }
