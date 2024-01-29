@@ -39,7 +39,7 @@ public class GridWebDriverCreator extends BaseWebDriverCreator {
             throw new RuntimeException("Unsupported browser: " + WEB_BROWSER);
         }
 
-        String gridUrl = "http://" + host + ":" + port;
+        String gridUrl = "http://" + host + ":" + port + "/wd/hub";
         try {
             return new RemoteWebDriver(new URL(gridUrl), caps);
         } catch (MalformedURLException e) {
