@@ -39,28 +39,61 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - chromium-arm
-      - firefox-arm
+      - seleniarm-hub # node grid setting
+#      - chromium-arm # standalone grid setting
+#      - firefox-arm # standalone grid setting
     links:
-      - chromium-arm
-      - firefox-arm
+      - seleniarm-hub # node grid setting
+#      - chromium-arm # standalone grid setting
+#      - firefox-arm # standalone grid setting
 
-  chromium-arm:
-    image: "seleniarm/standalone-chromium:latest"
-    container_name: "chromium-arm"
+#  chromium-arm: # standalone grid setting
+#    image: "seleniarm/standalone-chromium:latest"
+#    container_name: "chromium-arm"
+#    shm_size: 2gb
+#    ports:
+#      - 4446:4444
+#      - 7902:7900
+#
+#  firefox-arm: # standalone grid setting
+#    image: "seleniarm/standalone-firefox:latest"
+#    container_name: "firefox-arm"
+#    shm_size: 2gb
+#    ports:
+#      - 4445:4444
+#      - 7901:7900
+
+  chromium: # node grid setting
+    image: "seleniarm/node-chromium:latest"
     shm_size: 2gb
-    ports:
-      - 4446:4444
-      - 7902:7900
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=8
 
-  firefox-arm:
-    image: "seleniarm/standalone-firefox:latest"
-    container_name: "firefox-arm"
+  firefox: # node grid setting
+    image: "seleniarm/node-firefox:latest"
     shm_size: 2gb
-    ports:
-      - 4445:4444
-      - 7901:7900
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=8
 
+  seleniarm-hub: # node grid setting
+    image: "seleniarm/hub:latest"
+    container_name: "seleniarm-hub"
+    ports:
+      - 4442:4442
+      - 4443:4443
+      - 4444:4444
 
 volumes:
   kanboard_data:

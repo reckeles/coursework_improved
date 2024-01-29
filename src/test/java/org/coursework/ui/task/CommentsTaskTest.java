@@ -39,7 +39,6 @@ public class CommentsTaskTest extends BaseGUITest {
 
     @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI"})
     public void addCommentViaModalWindow() {
-        System.out.println("THREAD"+Thread.currentThread().getId());
         var currentTask = task.get();
         var currentUser = user.get();
 
@@ -60,7 +59,6 @@ public class CommentsTaskTest extends BaseGUITest {
 
     @Test(groups = {"CRUD_task_UI", "UI"})
     public void addCommentViaFormOnTaskPage() {
-        System.out.println("THREAD"+Thread.currentThread().getId());
         var currentTask = task.get();
         var currentUser = user.get();
 
