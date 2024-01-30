@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Properties;
 
 abstract public class BaseConfig {
-    static protected String environmentName;
-
     static protected Properties getResourceProperties(String resourceFilePath) {
         Properties props = new Properties();
         InputStream iStream = null;
@@ -35,9 +33,5 @@ abstract public class BaseConfig {
 
     static {
         InitErrors.showErrors();
-    }
-
-    static protected String getEnvironmentName() {
-        return environmentName;
     }
 }

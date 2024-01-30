@@ -4,7 +4,7 @@ public enum Environment {
     LOCAL,
     CI;
 
-    public String getEnvName() {
+    public String getName() {
         return this.name().toLowerCase();
     }
 }

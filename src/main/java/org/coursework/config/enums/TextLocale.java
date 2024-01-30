@@ -3,7 +3,7 @@ package org.coursework.config.enums;
 public enum TextLocale {
     EN;
 
-    public String getLocale() {
+    public String getName() {
         return this.name().toLowerCase();
     }
 }
