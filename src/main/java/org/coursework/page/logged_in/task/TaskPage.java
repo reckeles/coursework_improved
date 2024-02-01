@@ -80,7 +80,7 @@ public class TaskPage extends LoggedInFilterPage {
     }
 
     public void addedCommentIsVisible(){
-        $x(String.format("%s[%s]", commentSelector, this.commentsNumber)).shouldBe(visible);
+        $x(String.format("%s[%s]", commentSelector, commentsNumber)).shouldBe(visible);
     }
 
     @Override

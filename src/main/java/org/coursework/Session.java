@@ -23,29 +23,29 @@ public class Session {
     }
 
     public WebDriver getWebDriver() {
-        if (this.webDriver == null) {
+        if (webDriver == null) {
             setupWebDriver();
         }
-        return this.webDriver;
+        return webDriver;
     }
 
     private void setupWebDriver() {
         if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-            this.webDriverCreator = new LocalWebDriverCreator();
+            webDriverCreator = new LocalWebDriverCreator();
         } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
-            this.webDriverCreator = new GridWebDriverCreator();
+            webDriverCreator = new GridWebDriverCreator();
         } else {
             throw new RuntimeException("Unsupported env: " + EnvConfig.ENV_NAME.value);
         }
 
-        this.webDriver = this.webDriverCreator.createWebDriver();
-        this.webDriver.manage().window().maximize();
+        webDriver = webDriverCreator.createWebDriver();
+        webDriver.manage().window().maximize();
     }
 
     public void close() {
-        if (this.webDriver != null) {
-            this.webDriver.quit();
-            this.webDriver = null;
+        if (webDriver != null) {
+            webDriver.quit();
+            webDriver = null;
         }
     }
 
