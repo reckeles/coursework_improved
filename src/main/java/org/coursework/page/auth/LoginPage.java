@@ -52,7 +52,8 @@ public class LoginPage extends BasePage {
 
     @Step
     public void assertBadCredsAlertIsPresent() {
-        Assert.assertEquals(badCredentialsAlert.getText(), TextConfig.LOGIN_PAGE_BAD_CREDS_ALERT.value);
+
+        Assert.assertEquals(badCredentialsAlert.getText(), TextConfig.getTextProperties().loginPageBadCreds);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Properties;
 
 abstract public class BaseConfig {
-    static protected Properties getResourceProperties(String resourceFilePath) {
+    protected static Properties getResourceProperties(String resourceFilePath) {
         Properties props = new Properties();
         InputStream iStream = null;
         try {
@@ -29,6 +29,12 @@ abstract public class BaseConfig {
             }
         }
         return props;
+    }
+
+    protected static Properties setProperties(String resourceFilePath) {
+        Properties properties = new Properties();
+        properties.putAll(getResourceProperties(resourceFilePath));
+        return properties;
     }
 
     static {
