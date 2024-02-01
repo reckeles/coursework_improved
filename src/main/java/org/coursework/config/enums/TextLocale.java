@@ -4,6 +4,6 @@ public enum TextLocale {
     EN;
 
     public String getName() {
-        return this.name().toLowerCase();
+        return name().toLowerCase();
     }
 }

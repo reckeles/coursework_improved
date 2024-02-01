@@ -20,7 +20,7 @@ abstract public class BaseGUITest {
 
     protected void setWebDriver() {
         Session.get().getWebDriver().get(EnvConfig.getBaseURL());
-        WebDriverRunner.setWebDriver(this.wd());
+        WebDriverRunner.setWebDriver(wd());
     }
 
     protected void closeWebDriver() {

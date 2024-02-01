@@ -5,6 +5,6 @@ public enum Environment {
     CI;
 
     public String getName() {
-        return this.name().toLowerCase();
+        return name().toLowerCase();
     }
 }

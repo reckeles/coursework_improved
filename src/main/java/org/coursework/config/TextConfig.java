@@ -9,7 +9,6 @@ import java.util.Properties;
 public class TextConfig extends BaseConfig {
     private static TextProperties textProperties;
 
-
     public static TextProperties getTextProperties() {
         if (textProperties == null) {
             TextLocale locale = TextLocale.valueOf(System.getProperty("locale"));

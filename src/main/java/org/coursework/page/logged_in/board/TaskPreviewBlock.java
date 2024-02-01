@@ -9,12 +9,12 @@ public class TaskPreviewBlock extends BaseBlock {
 
     public TaskPreviewBlock(SelenideElement baseElement) {
         this.baseElement = baseElement;
-        this.name = baseElement.$x(".//div[contains(@class, 'title')]/a");
+        name = baseElement.$x(".//div[contains(@class, 'title')]/a");
 
     }
 
     @Override
     protected SelenideElement baseElement() {
-        return this.baseElement;
+        return baseElement;
     }
 }

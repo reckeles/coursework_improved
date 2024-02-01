@@ -26,13 +26,13 @@ public class GridWebDriverCreator extends BaseWebDriverCreator {
         if ("chromium".equalsIgnoreCase(WEB_BROWSER.getName())) {
             host = EnvConfig.SELENIARM_STANDALONE_CHROMIUM_HOST.value;
             port = EnvConfig.SELENIARM_STANDALONE_CHROMIUM_PORT.value;
-            caps.setCapability(ChromeOptions.CAPABILITY, this.getCommonChromeOptions());
+            caps.setCapability(ChromeOptions.CAPABILITY, getCommonChromeOptions());
             caps.setCapability(CapabilityType.BROWSER_NAME, Browser.CHROME.browserName());
             caps.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
         } else if ("firefox".equalsIgnoreCase(WEB_BROWSER.getName())) {
             host = EnvConfig.SELENIARM_STANDALONE_FIREFOX_HOST.value;
             port = EnvConfig.SELENIARM_STANDALONE_FIREFOX_PORT.value;
-            caps.setCapability(FirefoxOptions.FIREFOX_OPTIONS, this.getCommonFirefoxOptions());
+            caps.setCapability(FirefoxOptions.FIREFOX_OPTIONS, getCommonFirefoxOptions());
             caps.setCapability(CapabilityType.BROWSER_NAME, Browser.FIREFOX.browserName());
             caps.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
         } else {
