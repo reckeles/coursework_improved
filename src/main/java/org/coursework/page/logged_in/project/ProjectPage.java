@@ -10,7 +10,7 @@ import org.testng.Assert;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProjectPage extends LoggedInFilterPage {
-    private final String PROJECT_URL_REGEX = String.format("%s/project/\\d+", EnvConfig.getBaseURL());
+    private final String PROJECT_URL_REGEX = String.format("%s/project/\\d+", EnvConfig.getEnvProperties().baseUrl);
     private Integer projectId;
 
     private SelenideElement projectIsOpenLabel = $x("//ul[@class='panel']/li[1]");
@@ -26,7 +26,7 @@ public class ProjectPage extends LoggedInFilterPage {
     @Step
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/project/" + projectId);
+        open(EnvConfig.getEnvProperties().baseUrl + "/project/" + projectId);
     }
 
     @Override

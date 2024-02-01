@@ -90,7 +90,7 @@ public class TaskPage extends LoggedInFilterPage {
     @Step
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/task/" + taskId);
+        open(EnvConfig.getEnvProperties().baseUrl + "/task/" + taskId);
     }
 
     public void setTaskId(Integer taskId) {

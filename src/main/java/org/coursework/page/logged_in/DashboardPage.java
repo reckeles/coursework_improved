@@ -28,7 +28,7 @@ public class DashboardPage extends LoggedInPage {
     @Step
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/dashboard");
+        open(EnvConfig.getEnvProperties().baseUrl + "/dashboard");
     }
 
     @Override

@@ -56,7 +56,7 @@ public class BoardPage extends LoggedInFilterPage {
     @Step
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/board/" + projectId);
+        open(EnvConfig.getEnvProperties().baseUrl + "/board/" + projectId);
     }
 
     @Override

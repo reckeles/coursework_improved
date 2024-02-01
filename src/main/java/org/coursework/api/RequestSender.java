@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.coursework.api.model.Authorization;
+import org.coursework.config.EnvConfig;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,7 +27,7 @@ abstract public class RequestSender {
     }
 
     private static URI getAPIURL() {
-        String url = getBaseURL() + ":" + HTTP_BASE_PORT.value + "/jsonrpc.php";
+        String url = getEnvProperties().baseUrl + ":" + getEnvProperties().baseProtocol + "/jsonrpc.php";
         try {
             return new URI(url);
         } catch (URISyntaxException e) {

@@ -30,12 +30,12 @@ public class Session {
     }
 
     private void setupWebDriver() {
-        if ("local".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
+        if ("local".equalsIgnoreCase(EnvConfig.getEnvProperties().envName)) {
             webDriverCreator = new LocalWebDriverCreator();
-        } else if ("CI".equalsIgnoreCase(EnvConfig.ENV_NAME.value)) {
+        } else if ("CI".equalsIgnoreCase(EnvConfig.getEnvProperties().envName)) {
             webDriverCreator = new GridWebDriverCreator();
         } else {
-            throw new RuntimeException("Unsupported env: " + EnvConfig.ENV_NAME.value);
+            throw new RuntimeException("Unsupported env: " + EnvConfig.getEnvProperties().envName);
         }
 
         webDriver = webDriverCreator.createWebDriver();

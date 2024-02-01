@@ -12,7 +12,7 @@ public class BaseAPIRequestBody<T> {
     private T params;
 
     public BaseAPIRequestBody(String method, long id, T params) {
-        this.jsonrpc = EnvConfig.JSONRPC_VERSION.value;
+        this.jsonrpc = EnvConfig.getEnvProperties().jsonrpcVersion;
         this.method = method;
         this.id = id;
         this.params = params;
