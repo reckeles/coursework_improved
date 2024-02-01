@@ -15,10 +15,10 @@ public class TextConfig extends BaseConfig {
             String propertyPath = "texts/" + locale.getName() + ".properties";
             Properties localeProperties = setProperties(propertyPath);
 
-            Param LOGIN_PAGE_BAD_CREDS_ALERT = new Param("login.badCredsAlert", localeProperties);
-            Param TASK_STATUS_CLOSED_LABEL = new Param("task.status.closed", localeProperties);
+            Param loginPageBadCreds = new Param("login.badCredsAlert", localeProperties);
+            Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
 
-            textProperties = new TextProperties(LOGIN_PAGE_BAD_CREDS_ALERT.value, TASK_STATUS_CLOSED_LABEL.value);
+            textProperties = new TextProperties(loginPageBadCreds.value, taskStatusClosedLabel.value);
         }
         return textProperties;
     }
