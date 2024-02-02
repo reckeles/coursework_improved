@@ -28,7 +28,6 @@ public class EnvConfig extends BaseConfig {
             Param seleniarmFirefoxPort = new Param("seleniarm.firefox.port", properties);
             Param envName = new Param("env", properties);
             String baseUrl = String.format("%s://%s", baseProtocol.value, baseDomain.value);
-            System.out.println("DEBUG: "+ baseUrl);
 
             envProperties = new EnvProperties(baseProtocol.value,
                     baseDomain.value,

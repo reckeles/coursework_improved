@@ -27,7 +27,7 @@ abstract public class RequestSender {
     }
 
     private static URI getAPIURL() {
-        String url = getEnvProperties().baseUrl + ":" + getEnvProperties().baseProtocol + "/jsonrpc.php";
+        String url = getEnvProperties().baseUrl + ":" + getEnvProperties().basePort + "/jsonrpc.php";
         try {
             return new URI(url);
         } catch (URISyntaxException e) {
