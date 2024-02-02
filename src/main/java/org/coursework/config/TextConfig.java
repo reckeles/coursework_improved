@@ -1,26 +1,29 @@
 package org.coursework.config;
 
 import org.coursework.base.BaseConfig;
+import org.coursework.config.common.InitErrors;
 import org.coursework.config.common.Param;
 import org.coursework.config.enums.TextLocale;
 
 import java.util.Properties;
+
+import static org.coursework.utils.PropertyUtil.getProperty;
 
 public class TextConfig extends BaseConfig {
     private static TextProperties textProperties;
 
     public static TextProperties getTextProperties() {
         if (textProperties == null) {
-            TextLocale locale = TextLocale.valueOf(System.getProperty("locale"));
+            TextLocale locale = TextLocale.valueOf(getProperty("locale"));
             String propertyPath = "texts/" + locale.getName() + ".properties";
             Properties localeProperties = setProperties(propertyPath);
 
-            Param loginPageBadCreds = new Param("login.badCredsAlert", localeProperties);
-            Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
+            Param loginPageBadCreds = new Param("login.badCredsAlertv", localeProperties);
+            Param taskStatusClosedLabel = new Param("task.status.closedv", localeProperties);
+            //TODO - InitErrors refactor??
+            InitErrors.showErrors();
 
             textProperties = new TextProperties(loginPageBadCreds.value, taskStatusClosedLabel.value);
-            System.out.println("DEBUG "+textProperties.loginPageBadCreds);
-            System.out.println("DEBUG "+textProperties.taskStatusClosedLabel);
         }
         return textProperties;
     }

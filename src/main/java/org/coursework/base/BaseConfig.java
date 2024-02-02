@@ -1,12 +1,9 @@
 package org.coursework.base;
 
-import org.coursework.config.EnvConfig;
 import org.coursework.config.common.InitErrors;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 abstract public class BaseConfig {
@@ -14,9 +11,10 @@ abstract public class BaseConfig {
         Properties props = new Properties();
         InputStream iStream = null;
         try {
-            iStream = EnvConfig.class.getClassLoader().getResourceAsStream(resourceFilePath);
-            if (iStream == null)
+            iStream = BaseConfig.class.getClassLoader().getResourceAsStream(resourceFilePath);
+            if (iStream == null) {
                 throw new RuntimeException("Resource file not found " + resourceFilePath);
+            }
             props.load(iStream);
         } catch (IOException e) {
             throw new RuntimeException("Could not read resource properties file " + resourceFilePath, e);
