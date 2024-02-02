@@ -11,7 +11,7 @@ abstract public class BasePage {
     abstract public void openPage();
 
     public boolean isPageLoaded(int timeoutSec) {
-        Boolean customConfirm = this.customConfirm();
+        Boolean customConfirm = customConfirm();
         if (customConfirm != null) {
             return customConfirm;
         }
@@ -19,7 +19,7 @@ abstract public class BasePage {
 
         long timeout = Instant.now().getEpochSecond() + timeoutSec;
         while (timeout > Instant.now().getEpochSecond()) {
-            result = this.readyElement().exists();
+            result = readyElement().exists();
             if (result)
                 break;
             Wait.sleep(500);
@@ -28,9 +28,9 @@ abstract public class BasePage {
     }
 
     public void confirmPageIsLoaded() {
-        if (!this.isPageLoaded(5))
+        if (!isPageLoaded(5))
             throw new RuntimeException("Could not confirm that page is loaded: "
-                    + this.getClass().getSimpleName());
+                    + getClass().getSimpleName());
     }
 
     abstract protected SelenideElement readyElement();

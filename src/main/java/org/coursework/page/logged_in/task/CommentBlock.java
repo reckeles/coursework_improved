@@ -10,12 +10,12 @@ public class CommentBlock extends BaseBlock {
 
     public CommentBlock(SelenideElement baseElement) {
         this.baseElement = baseElement;
-        this.text = baseElement.$x(".//div[@class='comment-content']//p");
-        this.creator = baseElement.$x(".//div[@class='comment-title']/strong");
+        text = baseElement.$x(".//div[@class='comment-content']//p");
+        creator = baseElement.$x(".//div[@class='comment-title']/strong");
     }
 
     @Override
     protected SelenideElement baseElement() {
-        return this.baseElement;
+        return baseElement;
     }
 }

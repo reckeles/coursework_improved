@@ -6,6 +6,6 @@ public enum Browsers {
     FIREFOX;
 
     public String getName() {
-        return this.name().toLowerCase();
+        return name().toLowerCase();
     }
 }

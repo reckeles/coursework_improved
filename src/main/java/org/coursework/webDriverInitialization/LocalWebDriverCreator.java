@@ -13,9 +13,9 @@ public class LocalWebDriverCreator extends BaseWebDriverCreator {
     public WebDriver createWebDriver() {
         WebDriver driver;
         if ("chrome".equalsIgnoreCase(WEB_BROWSER.getName())) {
-            driver = new ChromeDriver(this.getCommonChromeOptions());
+            driver = new ChromeDriver(getCommonChromeOptions());
         } else if ("firefox".equalsIgnoreCase(WEB_BROWSER.getName())) {
-            driver = new FirefoxDriver(this.getCommonFirefoxOptions());
+            driver = new FirefoxDriver(getCommonFirefoxOptions());
         } else {
             throw new RuntimeException("Unsupported browser: " + WEB_BROWSER.getName());
         }

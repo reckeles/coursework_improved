@@ -9,18 +9,16 @@ import org.coursework.page.auth.LoginPage;
 import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.page;
-import static org.coursework.config.EnvConfig.ADMIN_PASSWORD;
-import static org.coursework.config.EnvConfig.ADMIN_USERNAME;
 
 abstract public class BaseGUITest {
     protected final User ADMIN = User.builder()
-            .username(ADMIN_USERNAME.value)
-            .password(ADMIN_PASSWORD.value)
+            .username(EnvConfig.getEnvProperties().adminUsername)
+            .password(EnvConfig.getEnvProperties().adminPassword)
             .build();
 
     protected void setWebDriver() {
-        Session.get().getWebDriver().get(EnvConfig.getBaseURL());
-        WebDriverRunner.setWebDriver(this.wd());
+        Session.get().getWebDriver().get(EnvConfig.getEnvProperties().baseUrl);
+        WebDriverRunner.setWebDriver(wd());
     }
 
     protected void closeWebDriver() {

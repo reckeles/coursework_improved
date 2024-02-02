@@ -34,11 +34,11 @@ public class BoardPage extends LoggedInFilterPage {
     }
 
     public BoardPage() {
-        this.tasksNumberInBacklog = 0;
+        tasksNumberInBacklog = 0;
     }
 
     public void addedTaskIsVisible() {
-        $x(String.format("%s[%s]", taskPreviewBacklogSelector, this.tasksNumberInBacklog)).shouldBe(visible);
+        $x(String.format("%s[%s]", taskPreviewBacklogSelector, tasksNumberInBacklog)).shouldBe(visible);
     }
 
     public void setProjectId(Integer projectId) {
@@ -56,7 +56,7 @@ public class BoardPage extends LoggedInFilterPage {
     @Step
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/board/" + projectId);
+        open(EnvConfig.getEnvProperties().baseUrl + "/board/" + projectId);
     }
 
     @Override

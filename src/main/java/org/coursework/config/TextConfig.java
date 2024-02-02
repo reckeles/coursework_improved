@@ -1,6 +1,7 @@
 package org.coursework.config;
 
 import org.coursework.base.BaseConfig;
+import org.coursework.config.common.InitErrors;
 import org.coursework.config.common.Param;
 import org.coursework.config.enums.TextLocale;
 
@@ -9,20 +10,30 @@ import java.util.Properties;
 import static org.coursework.utils.PropertyUtil.getProperty;
 
 public class TextConfig extends BaseConfig {
-    private static TextLocale locale = TextLocale.valueOf(getProperty("locale", "EN"));
+    private static TextProperties textProperties;
 
-    public static final Param LOGIN_PAGE_BAD_CREDS_ALERT = new Param("login.badCredsAlert", "Bad username or password", true, getEnvProperties(locale));
-    public static final Param TASK_STATUS_CLOSED_LABEL = new Param("task.status.closed", "closed", true, getEnvProperties(locale));
+    public static TextProperties getTextProperties() {
+        if (textProperties == null) {
+            TextLocale locale = TextLocale.valueOf(getProperty("locale"));
+            String propertyPath = "texts/" + locale.getName() + ".properties";
+            Properties localeProperties = setProperties(propertyPath);
 
-    private static Properties envProperties;
+            Param loginPageBadCreds = new Param("login.badCredsAlert", localeProperties);
+            Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
+            InitErrors.showErrors();
 
-    private static Properties getEnvProperties(TextLocale locale) {
-        if (envProperties == null) {
-            envProperties = new Properties();
-            environmentName = locale.getLocale();
-            envProperties.putAll(getResourceProperties("common.properties"));
-            envProperties.putAll(getResourceProperties("texts/" + environmentName + ".properties"));
+            textProperties = new TextProperties(loginPageBadCreds.value, taskStatusClosedLabel.value);
         }
-        return envProperties;
+        return textProperties;
+    }
+
+    public static class TextProperties {
+        public final String loginPageBadCreds;
+        public final String taskStatusClosedLabel;
+
+        public TextProperties(String loginPageBadCreds, String taskStatusClosedLabel) {
+            this.loginPageBadCreds = loginPageBadCreds;
+            this.taskStatusClosedLabel = taskStatusClosedLabel;
+        }
     }
 }

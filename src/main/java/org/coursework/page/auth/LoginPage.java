@@ -52,12 +52,12 @@ public class LoginPage extends BasePage {
 
     @Step
     public void assertBadCredsAlertIsPresent() {
-        Assert.assertEquals(badCredentialsAlert.getText(), TextConfig.LOGIN_PAGE_BAD_CREDS_ALERT.value);
+        Assert.assertEquals(badCredentialsAlert.getText(), TextConfig.getTextProperties().loginPageBadCreds);
     }
 
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/login");
+        open(EnvConfig.getEnvProperties().baseUrl + "/login");
     }
 
     @Override

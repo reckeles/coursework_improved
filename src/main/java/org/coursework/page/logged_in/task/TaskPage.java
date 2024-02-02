@@ -1,10 +1,10 @@
 package org.coursework.page.logged_in.task;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.coursework.config.EnvConfig;
+import org.coursework.config.TextConfig;
 import org.coursework.page.common.LoggedInFilterPage;
 import org.coursework.utils.Wait;
 import org.testng.Assert;
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static org.coursework.config.TextConfig.TASK_STATUS_CLOSED_LABEL;
 
 public class TaskPage extends LoggedInFilterPage {
     private Integer taskId;
@@ -55,7 +54,7 @@ public class TaskPage extends LoggedInFilterPage {
     @Step
     public void assertTaskIsClosed() {
         Wait.sleep(3 * 1000);
-        Assert.assertEquals(statusLabel.getText(), TASK_STATUS_CLOSED_LABEL.value, "Task status is not closed.");
+        Assert.assertEquals(statusLabel.getText(), TextConfig.getTextProperties().taskStatusClosedLabel, "Task status is not closed.");
     }
 
     private List<CommentBlock> getCommentsOnPage() {
@@ -80,7 +79,7 @@ public class TaskPage extends LoggedInFilterPage {
     }
 
     public void addedCommentIsVisible(){
-        $x(String.format("%s[%s]", commentSelector, this.commentsNumber)).shouldBe(visible);
+        $x(String.format("%s[%s]", commentSelector, commentsNumber)).shouldBe(visible);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class TaskPage extends LoggedInFilterPage {
     @Step
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL() + "/task/" + taskId);
+        open(EnvConfig.getEnvProperties().baseUrl + "/task/" + taskId);
     }
 
     public void setTaskId(Integer taskId) {
