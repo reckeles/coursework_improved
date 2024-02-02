@@ -19,6 +19,8 @@ public class TextConfig extends BaseConfig {
             Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
 
             textProperties = new TextProperties(loginPageBadCreds.value, taskStatusClosedLabel.value);
+            System.out.println("DEBUG "+textProperties.loginPageBadCreds);
+            System.out.println("DEBUG "+textProperties.taskStatusClosedLabel);
         }
         return textProperties;
     }
