@@ -20,7 +20,6 @@ public class TextConfig extends BaseConfig {
 
             Param loginPageBadCreds = new Param("login.badCredsAlert", localeProperties);
             Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
-            //TODO - InitErrors refactor??
             InitErrors.showErrors();
 
             textProperties = new TextProperties(loginPageBadCreds.value, taskStatusClosedLabel.value);

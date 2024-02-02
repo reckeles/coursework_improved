@@ -18,7 +18,6 @@ public class Param {
             tmpVal = defaultValue;
         }
         if (tmpVal == null) {
-            //TODO - InitErrors refactor??
             InitErrors.addError("Parameter value is not found. Parameter " + name);
         }
         value = tmpVal;

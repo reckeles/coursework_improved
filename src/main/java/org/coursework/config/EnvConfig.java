@@ -1,6 +1,7 @@
 package org.coursework.config;
 
 import org.coursework.base.BaseConfig;
+import org.coursework.config.common.InitErrors;
 import org.coursework.config.common.Param;
 import org.coursework.config.enums.Environment;
 
@@ -29,6 +30,8 @@ public class EnvConfig extends BaseConfig {
             Param seleniarmFirefoxHost = new Param("seleniarm.firefox.host", properties);
             Param seleniarmFirefoxPort = new Param("seleniarm.firefox.port", properties);
             Param envName = new Param("env", properties);
+            InitErrors.showErrors();
+
             String baseUrl = String.format("%s://%s", baseProtocol.value, baseDomain.value);
 
             envProperties = new EnvProperties(baseProtocol.value,
