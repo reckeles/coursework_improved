@@ -18,8 +18,8 @@ public class TextConfig extends BaseConfig {
             String propertyPath = "texts/" + locale.getName() + ".properties";
             Properties localeProperties = setProperties(propertyPath);
 
-            Param loginPageBadCreds = new Param("login.badCredsAlertv", localeProperties);
-            Param taskStatusClosedLabel = new Param("task.status.closedv", localeProperties);
+            Param loginPageBadCreds = new Param("login.badCredsAlert", localeProperties);
+            Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
             //TODO - InitErrors refactor??
             InitErrors.showErrors();
 
