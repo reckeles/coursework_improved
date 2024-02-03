@@ -9,11 +9,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TestData {
-    //TODO - move to enum
-    private static final String ADMIN_ROLE = "app-admin";
-    private static final String MANAGER_ROLE = "app-manager";
-    private static final String USER_ROLE = "app-user";
-
     public static String getRandomStr() {
         int length = getRandomInt(50);
         boolean useLetters = true;
@@ -22,25 +17,22 @@ public class TestData {
     }
 
     public static User generateDefaultUserData() {
-//        return new User("newuser" + getRandomInt(), "password_123", "Yuliia", "yuliia@gmail.com", ADMIN_ROLE);
         return User.builder()
                 .username("newuser" + getRandomInt())
                 .password("password_123")
                 .name("Yuliia")
                 .email("yuliia@gmail.com")
-                .role(ADMIN_ROLE)
+                .role(Roles.ADMIN_ROLE.getRole())
                 .build();
     }
 
     public static Project generateDefaultProjectData() {
-//        return new Project("project" + getRandomInt());
         return Project.builder()
                 .name("project" + getRandomInt())
                 .build();
     }
 
     public static Project generateProjectWithOwnerData(Integer userId) {
-//        return new Project("project" + getRandomInt(), userId);
         return Project.builder()
                 .name("project" + getRandomInt())
                 .owner_id(userId)
@@ -55,14 +47,26 @@ public class TestData {
     }
 
     private static int getRandomInt() {
-//        Random rand = new Random();
-//        return rand.nextInt(100000);
         return ThreadLocalRandom.current().nextInt(100000);
     }
 
     private static int getRandomInt(int range) {
-//        Random rand = new Random();
-//        return rand.nextInt(range);
         return ThreadLocalRandom.current().nextInt(range);
+    }
+
+    private enum Roles {
+        ADMIN_ROLE("app-admin"),
+        MANAGER_ROLE("app-manager"),
+        USER_ROLE("app-user");
+
+        private String role;
+
+        Roles(String role) {
+            this.role = role;
+        }
+
+        public String getRole() {
+            return role;
+        }
     }
 }

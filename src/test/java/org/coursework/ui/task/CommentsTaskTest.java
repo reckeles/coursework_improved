@@ -54,7 +54,6 @@ public class CommentsTaskTest extends BaseGUITest {
 
         taskPage.assertCommentCreatorIsSameAsExpected(currentUser.getName());
         taskPage.assertCommentTextIsSameAsExpected(comment);
-        //TODO add assertion for dates in comment
     }
 
     @Test(groups = {"CRUD_task_UI", "UI"})
@@ -73,7 +72,6 @@ public class CommentsTaskTest extends BaseGUITest {
 
         taskPage.assertCommentCreatorIsSameAsExpected(currentUser.getName());
         taskPage.assertCommentTextIsSameAsExpected(comment);
-        //TODO add assertion for dates in comment
     }
 
     @AfterMethod(alwaysRun = true)
