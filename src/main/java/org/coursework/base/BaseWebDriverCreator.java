@@ -15,12 +15,12 @@ abstract public class BaseWebDriverCreator {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-default-apps");
         options.addArguments("disable-extensions");
-        Map<String, Object> preferences = new HashMap<>();
-        preferences.put("browser.show_home_button", false);
+//        Map<String, Object> preferences = new HashMap<>();
+//        preferences.put("browser.show_home_button", false);
         options.addArguments("start-maximized");
         if (HEADLESS_FLAG) {
             options.addArguments("--headless");
-            options.addArguments("--no-sandbox");
+//            options.addArguments("--no-sandbox");
         }
         return options;
     }
@@ -35,7 +35,7 @@ abstract public class BaseWebDriverCreator {
         options.addArguments("start-maximized");
         if (HEADLESS_FLAG) {
             options.addArguments("--headless");
-            options.addArguments("--no-sandbox");
+//            options.addArguments("--no-sandbox");
             options.addArguments("start-maximized");
         }
         return options;
