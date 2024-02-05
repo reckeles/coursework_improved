@@ -15,7 +15,7 @@ public class EnvConfig extends BaseConfig {
 
     public static EnvProperties getEnvProperties(){
         if(envProperties == null){
-            Environment env = Environment.valueOf(getProperty("env"));
+            Environment env = Environment.valueOf(getProperty("env").toUpperCase());
             String propertyPath = "env/" + env.getName() + ".properties";
             Properties properties = setProperties(propertyPath);
 

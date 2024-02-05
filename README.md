@@ -11,7 +11,7 @@ To run all tests ``mvn clean test -DsuiteXmlFile=testng.xml -Denv={env_name} -Db
 
 Execution args:
 - ``-Denv``: `local` or `ci`; `local` is for local development, `ci` is for executing in a pipeline
-- ``-Dbrowser``: `chrome`, `firefox` or `chromium`; `chrome` is for local development and executing in a pipeline, `chromium` is for executing in a pipeline on **machine with ARM processor**, `firefox` is for local development and executing in a pipeline
+- ``-Dbrowser``: `chrome`, `firefox` or `chromium`; `chrome` is for local development, `chromium` is for executing in a pipeline, `firefox` is for local development and executing in a pipeline. Note that this projects uses ARM images. 
 - ``-Dheadless``: `true` or `false`
 - ``-Dlocale``: `en`
 - ``-Dtest``: run single test; example ``-Dtest={classname}#{testname}``

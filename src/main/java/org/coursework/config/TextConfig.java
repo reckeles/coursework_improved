@@ -14,7 +14,7 @@ public class TextConfig extends BaseConfig {
 
     public static TextProperties getTextProperties() {
         if (textProperties == null) {
-            TextLocale locale = TextLocale.valueOf(getProperty("locale"));
+            TextLocale locale = TextLocale.valueOf(getProperty("locale").toUpperCase());
             String propertyPath = "texts/" + locale.getName() + ".properties";
             Properties localeProperties = setProperties(propertyPath);
 
