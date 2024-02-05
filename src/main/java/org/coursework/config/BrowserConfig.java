@@ -6,5 +6,5 @@ import static org.coursework.utils.PropertyUtil.getProperty;
 
 public class BrowserConfig {
     public static final boolean HEADLESS_FLAG = Boolean.parseBoolean(getProperty("headless", "TRUE"));
-    public static final Browsers WEB_BROWSER = Browsers.valueOf(getProperty("browser"));
+    public static final Browsers WEB_BROWSER = Browsers.valueOf(getProperty("browser").toUpperCase());
 }
