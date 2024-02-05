@@ -1,15 +1,25 @@
-To run all tests ``mvn clean test``
+**SET UP** 
+1. Install Docker on your machine 
+2. Open Terminal 
+3. Go to ``./docker`` folder 
+4. Run ``docker compose pull``
+5. Run ``docker compose up -d``
 
-To run one specific test `` mvn clean test -Dtest={classname}#{testname}
-``
+**RUN TESTS** 
 
-To generate report ``mvn allure:report``
+To run all tests ``mvn clean test -DsuiteXmlFile=testng.xml -Denv={env_name} -Dbrowser={browser_name}  -Dlocale={locale_name}``
 
-Options for test run 
-1. ``-Denv``, default value ``LOCAL``
-2. ``-Dlocale``, default value ``EN``
-3. ``-Dbrowser``, default value ``CHROME``
-4. ``-Dheadless``, default value ``TRUE``
-5. ``-Dtest={classname}#{testname}``, no default value 
-6. ``-Dgroups={groupname1},{groupname2},{groupnamen}``, no default value 
-7. ``-DsuiteXmlFile=testng.xml``, no default value. Option for running test in parallel
+Execution args:
+- ``-Denv``: `local` or `ci`; `local` is for local development, `ci` is for executing in a pipeline
+- ``-Dbrowser``: `chrome`, `firefox` or `chromium`; `chrome` is for local development and executing in a pipeline, `chromium` is for executing in a pipeline on **machine with ARM processor**, `firefox` is for local development and executing in a pipeline
+- ``-Dheadless``: `true` or `false`
+- ``-Dlocale``: `en`
+- ``-Dtest``: run single test; example ``-Dtest={classname}#{testname}``
+- ``-Dgroups``: run only specific groups of tests; example ``-Dgroups={groupname1},{groupname2},{groupnamen}``
+- ``-DsuiteXmlFile``: `testng.xml`; for parallel test running
+
+
+**GENERATE TEST REPORT**
+1. Run ``mvn allure:report``
+2. Go to ``./target/site/``
+3. Open ``index.html`` in any browser
