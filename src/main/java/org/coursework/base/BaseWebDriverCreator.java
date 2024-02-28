@@ -7,7 +7,9 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 
 import static org.coursework.config.BrowserConfig.HEADLESS_FLAG;
 
-abstract public class BaseWebDriverCreator {
+public abstract class BaseWebDriverCreator {
+
+    public abstract WebDriver createWebDriver();
 
     protected final ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions()
@@ -34,6 +36,4 @@ abstract public class BaseWebDriverCreator {
 
         return options;
     }
-
-    abstract public WebDriver createWebDriver();
 }

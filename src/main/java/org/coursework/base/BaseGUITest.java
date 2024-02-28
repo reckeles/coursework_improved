@@ -10,7 +10,8 @@ import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.page;
 
-abstract public class BaseGUITest {
+public abstract class BaseGUITest {
+
     protected final User ADMIN = User.builder()
             .username(EnvConfig.getEnvProperties().adminUsername)
             .password(EnvConfig.getEnvProperties().adminPassword)
@@ -33,7 +34,7 @@ abstract public class BaseGUITest {
         return page(DashboardPage.class);
     }
 
-    protected WebDriver wd() {
+    private WebDriver wd() {
         return Session.get().getWebDriver();
     }
 }
