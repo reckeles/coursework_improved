@@ -36,4 +36,7 @@ public class TextConfig extends BaseConfig {
             this.taskStatusClosedLabel = taskStatusClosedLabel;
         }
     }
+
+    private TextConfig() {
+    }
 }

@@ -5,7 +5,7 @@ import org.coursework.config.EnvConfig;
 
 import static org.coursework.config.EnvConfig.*;
 
-abstract public class BaseAPITest {
+public abstract class BaseAPITest {
     protected final User ADMIN = User.builder()
             .username(getEnvProperties().adminUsername)
             .password(getEnvProperties().adminPassword)

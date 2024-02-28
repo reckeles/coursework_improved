@@ -11,10 +11,9 @@ import static org.coursework.utils.PropertyUtil.getProperty;
 
 public class EnvConfig extends BaseConfig {
     private static EnvProperties envProperties;
-//    private static String baseUrl;
 
-    public static EnvProperties getEnvProperties(){
-        if(envProperties == null){
+    public static EnvProperties getEnvProperties() {
+        if (envProperties == null) {
             Environment env = Environment.valueOf(getProperty("env").toUpperCase());
             String propertyPath = "env/" + env.getName() + ".properties";
             Properties properties = setProperties(propertyPath);
@@ -89,5 +88,8 @@ public class EnvConfig extends BaseConfig {
             this.envName = envName;
             this.baseUrl = baseUrl;
         }
+    }
+
+    private EnvConfig() {
     }
 }

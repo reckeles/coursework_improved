@@ -7,10 +7,27 @@ import org.coursework.Session;
 
 import java.time.Instant;
 
-abstract public class BasePage {
-    abstract public void openPage();
+public abstract class BasePage {
 
-    public boolean isPageLoaded(int timeoutSec) {
+    public abstract void openPage();
+
+    public void confirmPageIsLoaded() {
+        if (!isPageLoaded(5))
+            throw new RuntimeException("Could not confirm that page is loaded: "
+                    + getClass().getSimpleName());
+    }
+
+    protected abstract SelenideElement readyElement();
+
+//    protected WebDriver wd() {
+//        return Session.get().getWebDriver();
+//    }
+
+    private Boolean customConfirm() {
+        return null;
+    }
+
+    private boolean isPageLoaded(int timeoutSec) {
         Boolean customConfirm = customConfirm();
         if (customConfirm != null) {
             return customConfirm;
@@ -25,21 +42,5 @@ abstract public class BasePage {
             Wait.sleep(500);
         }
         return result;
-    }
-
-    public void confirmPageIsLoaded() {
-        if (!isPageLoaded(5))
-            throw new RuntimeException("Could not confirm that page is loaded: "
-                    + getClass().getSimpleName());
-    }
-
-    abstract protected SelenideElement readyElement();
-
-    protected WebDriver wd() {
-        return Session.get().getWebDriver();
-    }
-
-    protected Boolean customConfirm() {
-        return null;
     }
 }
