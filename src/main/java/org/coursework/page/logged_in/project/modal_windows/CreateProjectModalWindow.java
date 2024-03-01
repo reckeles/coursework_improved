@@ -15,10 +15,9 @@ public class CreateProjectModalWindow extends ModalWindow {
     private SelenideElement taskLimitInput = Selenide.$("input#form-task_limit");
 
     @Step
-    public ProjectPage createProjectOnlyRequiredFields(String name) {
+    public void createProjectOnlyRequiredFields(String name) {
         nameInput.sendKeys(name);
         submitButton.click();
-        return page(ProjectPage.class);
     }
 
     @Step

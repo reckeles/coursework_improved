@@ -8,7 +8,7 @@ import org.coursework.page.logged_in.project_board.ProjectBoardPage;
 public class CreateTaskModalWindow extends ModalWindow {
     private SelenideElement titleInput = Selenide.$("input#form-title");
 
-    public void createTaskOnlyRequiredFields(String title){
+    public void createTaskOnlyRequiredFields(String title) {
         titleInput.sendKeys(title);
         submitButton.click();
     }

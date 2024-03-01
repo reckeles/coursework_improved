@@ -17,9 +17,6 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TaskPage extends BasePage {
-    private CloseTaskModalWindow closeTaskModalWindow = new CloseTaskModalWindow();
-    private AddCommentToTaskModalWindow addCommentToTaskModalWindow = new AddCommentToTaskModalWindow();
-
     private String commentSelector = "//div[contains(@id, 'comment-')]";
 
     private SelenideElement taskSummaryBox = $("section#task-summary");
@@ -34,11 +31,13 @@ public class TaskPage extends BasePage {
     private SelenideElement textAreaCommentForm = $x("//textarea[@name='comment']");
     private SelenideElement submitButtonCommentForm = $x("//button[@type='submit']");
 
+    private CloseTaskModalWindow closeTaskModalWindow = new CloseTaskModalWindow();
+    private AddCommentToTaskModalWindow addCommentToTaskModalWindow = new AddCommentToTaskModalWindow();
+
     public TaskPage(Integer taskId) {
         super("/task/" + taskId);
     }
 
-    //actions
     @Step
     public void closeTask() {
         closeTaskAction.click();
@@ -61,14 +60,12 @@ public class TaskPage extends BasePage {
         submitButtonCommentForm.click();
     }
 
-    //assertion
     @Step
-    public void addedCommentIsVisible(String commentText){
-        findElementByText(commentText);
+    public void addedCommentIsVisible(String commentText) {
+        findElementByText("p", commentText);
     }
 
-    //helpers
-    public CommentBlock getLastCommentInTheList(){
+    public CommentBlock getLastCommentInTheList() {
         List<CommentBlock> comments = getCommentsOnPage();
         return comments.get(comments.size() - 1);
     }

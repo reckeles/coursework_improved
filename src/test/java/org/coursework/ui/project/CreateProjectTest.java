@@ -2,7 +2,6 @@ package org.coursework.ui.project;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.api.model.user.User;
-import org.coursework.page.logged_in.project.modal_windows.CreateProjectModalWindow;
 import org.coursework.page.logged_in.DashboardPage;
 import org.coursework.page.logged_in.project.ProjectPage;
 import org.testng.annotations.AfterMethod;
@@ -30,12 +29,18 @@ public class CreateProjectTest extends BaseGUITest {
 
     @Test(groups = {"CRUD_project_UI", "UI", "smoke_UI"})
     public void createProject() {
+        String projectName = getRandomStr();
         DashboardPage dashboardPage = new DashboardPage();
+
         dashboardPage.open();
-        CreateProjectModalWindow createProjectModalWindow = dashboardPage.openCreateProjectWindow();
-        ProjectPage projectPage = createProjectModalWindow.createProjectOnlyRequiredFields(getRandomStr());
-//        projectPage.confirmPageIsLoaded();
-        projectPage.assertPageUrlIsRight();
+        dashboardPage.openCreateProjectWindow(projectName);
+
+        ProjectPage projectPage = new ProjectPage();
+
+        projectPage.confirmPageIsLoaded();
+        projectPage.projectNameIsVisible(projectName);
+        projectPage.projectStatusIsOpened();
+
         projectId.set(projectPage.getProjectId());
     }
 

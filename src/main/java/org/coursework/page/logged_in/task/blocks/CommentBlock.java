@@ -17,12 +17,12 @@ public class CommentBlock extends BaseBlock {
     }
 
     @Step
-    public void assertCreatorName(String expectedUsername){
+    public void assertCreatorName(String expectedUsername) {
         Assert.assertEquals(creator.text(), expectedUsername, "Comment's creator name is not same as expected.");
     }
 
     @Step
-    public void assertText(String expectedText){
+    public void assertText(String expectedText) {
         Assert.assertEquals(text.text(), expectedText, "Comment's text is not same as expected.");
     }
 

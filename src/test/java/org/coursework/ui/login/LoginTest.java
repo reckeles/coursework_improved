@@ -27,7 +27,9 @@ public class LoginTest extends BaseGUITest {
         var currentUser = user.get();
 
         LoginPage loginPage = new LoginPage();
-        DashboardPage dashboardPage = loginPage.login(currentUser.getUsername(), currentUser.getPassword());
+        loginPage.login(currentUser.getUsername(), currentUser.getPassword());
+
+        DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.confirmPageIsLoaded();
     }
 

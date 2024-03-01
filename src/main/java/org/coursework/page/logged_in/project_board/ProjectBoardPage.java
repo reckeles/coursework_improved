@@ -13,34 +13,28 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProjectBoardPage extends BasePage {
-    private CreateTaskModalWindow createTaskModalWindow = new CreateTaskModalWindow();
-
-    //selenideelements
-    //TODO - enums for columns backlog etc ????
+    //TODO - refactor selectors
     private String taskCardBacklogSelector = "//td[contains(@class, 'board-column')][1]/div/div[contains(@class, 'task-board')]";
     private SelenideElement addTaskIconBacklog = $x("//th[contains(@class, 'board-column-header')][1]//i[contains(@class, 'js-modal-large')]");
 
-    //constructors
+    private CreateTaskModalWindow createTaskModalWindow = new CreateTaskModalWindow();
+
     public ProjectBoardPage(Integer projectId) {
         super("/board/" + projectId);
     }
 
-    //actions with elements
     @Step
     public void addTaskToBacklog(String title) {
         addTaskIconBacklog.click();
         createTaskModalWindow.createTaskOnlyRequiredFields(title);
     }
 
-    //asserts
     @Step
     public void addedTaskIsVisible(String taskName) {
-        findElementByText(taskName);
+        findElementByText("a", taskName);
     }
 
-    //helpers and private methods
-    //TODO - enums for columns backlog etc ????
-    public TaskPreviewBlock getLastTaskInTheBacklogList(){
+    public TaskPreviewBlock getLastTaskInTheBacklogList() {
         List<TaskPreviewBlock> tasks = getTasksInBacklog();
         return tasks.get(tasks.size() - 1);
     }

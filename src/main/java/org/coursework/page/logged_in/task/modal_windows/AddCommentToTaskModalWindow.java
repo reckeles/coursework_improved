@@ -16,10 +16,4 @@ public class AddCommentToTaskModalWindow extends ModalWindow {
         textComment.sendKeys(comment);
         submitButton.click();
     }
-
-    @Step
-    public TaskPage addCommentWithEmail(String comment) {
-        return page(TaskPage.class);
-    }
-
 }

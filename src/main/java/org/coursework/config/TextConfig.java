@@ -20,9 +20,13 @@ public class TextConfig extends BaseConfig {
 
             Param loginPageBadCreds = new Param("login.badCredsAlert", localeProperties);
             Param taskStatusClosedLabel = new Param("task.status.closed", localeProperties);
+            Param projectStatusOpened = new Param("project.status.opened", localeProperties);
             InitErrors.showErrors();
 
-            textProperties = new TextProperties(loginPageBadCreds.value, taskStatusClosedLabel.value);
+            textProperties = new TextProperties(
+                    loginPageBadCreds.value,
+                    taskStatusClosedLabel.value,
+                    projectStatusOpened.value);
         }
         return textProperties;
     }
@@ -30,10 +34,12 @@ public class TextConfig extends BaseConfig {
     public static class TextProperties {
         public final String loginPageBadCreds;
         public final String taskStatusClosedLabel;
+        public final String projectStatusOpened;
 
-        public TextProperties(String loginPageBadCreds, String taskStatusClosedLabel) {
+        public TextProperties(String loginPageBadCreds, String taskStatusClosedLabel, String projectStatusOpened) {
             this.loginPageBadCreds = loginPageBadCreds;
             this.taskStatusClosedLabel = taskStatusClosedLabel;
+            this.projectStatusOpened = projectStatusOpened;
         }
     }
 
