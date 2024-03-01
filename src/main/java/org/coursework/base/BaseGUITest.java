@@ -1,6 +1,7 @@
 package org.coursework.base;
 
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import org.coursework.config.EnvConfig;
 import org.coursework.Session;
 import org.coursework.api.model.user.User;
@@ -26,12 +27,10 @@ public abstract class BaseGUITest {
         Session.get().close();
     }
 
-    protected DashboardPage login(String username, String password) {
+    protected void login(String username, String password) {
         LoginPage loginPage = new LoginPage();
-        DashboardPage dashboardPage = new DashboardPage();
-        loginPage.login(username, password);
-        dashboardPage.searchVisible();
-        return page(DashboardPage.class);
+        DashboardPage dashboardPage = loginPage.login(username, password);
+        dashboardPage.confirmPageIsLoaded();
     }
 
     private WebDriver wd() {

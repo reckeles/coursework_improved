@@ -28,7 +28,7 @@ public class LoginTest extends BaseGUITest {
 
         LoginPage loginPage = new LoginPage();
         DashboardPage dashboardPage = loginPage.login(currentUser.getUsername(), currentUser.getPassword());
-        dashboardPage.searchVisible();
+        dashboardPage.confirmPageIsLoaded();
     }
 
     @Test(groups = {"authflow", "UI"})

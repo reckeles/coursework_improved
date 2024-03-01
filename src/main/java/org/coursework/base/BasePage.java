@@ -1,37 +1,46 @@
 package org.coursework.base;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import org.coursework.config.EnvConfig;
 import org.coursework.utils.Wait;
-import org.openqa.selenium.WebDriver;
-import org.coursework.Session;
 
 import java.time.Instant;
 
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
+
 public abstract class BasePage {
 
-    public abstract void openPage();
+    private final String pageUrl;
 
-    public void confirmPageIsLoaded() {
-        if (!isPageLoaded(5))
+    public BasePage(String relativeUrl) {
+        this.pageUrl = EnvConfig.getEnvProperties().baseUrl + relativeUrl;
+    }
+
+    @Step
+    public void open() {
+        Selenide.open(pageUrl);
+        confirmPageIsLoaded();
+    }
+
+    @Step
+    public void confirmPageIsLoaded(){
+        if (!isPageLoaded(5)) {
             throw new RuntimeException("Could not confirm that page is loaded: "
                     + getClass().getSimpleName());
+        }
+    }
+
+    protected void findElementByText(String text){
+        String sel = String.format("//*[text()='%s']", text);
+        $x(sel).shouldBe(visible);
     }
 
     protected abstract SelenideElement readyElement();
 
-//    protected WebDriver wd() {
-//        return Session.get().getWebDriver();
-//    }
-
-    private Boolean customConfirm() {
-        return null;
-    }
-
-    private boolean isPageLoaded(int timeoutSec) {
-        Boolean customConfirm = customConfirm();
-        if (customConfirm != null) {
-            return customConfirm;
-        }
+    protected boolean isPageLoaded(int timeoutSec) {
         boolean result = false;
 
         long timeout = Instant.now().getEpochSecond() + timeoutSec;

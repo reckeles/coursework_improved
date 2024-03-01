@@ -10,7 +10,6 @@ import org.coursework.page.logged_in.DashboardPage;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class LoginPage extends BasePage {
@@ -20,6 +19,11 @@ public class LoginPage extends BasePage {
 
     private SelenideElement badCredentialsAlert = Selenide.$("p.alert.alert-error");
 
+    public LoginPage() {
+        super("/login");
+    }
+
+    //actions
     @Step("Attempt of login")
     public DashboardPage login(String name, String password) {
         usernameInput.sendKeys(name);
@@ -40,6 +44,7 @@ public class LoginPage extends BasePage {
         submitButton.click();
     }
 
+    //asserts
     @Step
     public void usernameIsRequired() {
         usernameInput.shouldHave(attribute("required"));
@@ -55,11 +60,7 @@ public class LoginPage extends BasePage {
         Assert.assertEquals(badCredentialsAlert.getText(), TextConfig.getTextProperties().loginPageBadCreds);
     }
 
-    @Override
-    public void openPage() {
-        open(EnvConfig.getEnvProperties().baseUrl + "/login");
-    }
-
+    //helpers
     @Override
     protected SelenideElement readyElement() {
         return usernameInput;
