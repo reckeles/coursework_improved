@@ -1,17 +1,13 @@
 package org.coursework.page.logged_in.project;
 
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.coursework.base.BasePage;
-import org.coursework.config.EnvConfig;
 import org.coursework.utils.HTMLTags;
 import org.testng.Assert;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.coursework.config.TextConfig.getTextProperties;
-import static org.coursework.utils.HTMLTags.SPAN;
 
 public class ProjectPage extends BasePage {
     private SelenideElement projectStatusLabel = $x("//ul[@class='panel']/li[1]/strong");

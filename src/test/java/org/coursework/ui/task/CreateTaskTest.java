@@ -5,9 +5,7 @@ import org.coursework.api.model.project.Project;
 import org.coursework.api.model.user.User;
 import org.coursework.page.logged_in.project_board.ProjectBoardPage;
 import org.coursework.page.logged_in.project_board.blocks.TaskPreviewBlock;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.coursework.api.procedures.ProjectProcedures.createProject;
 import static org.coursework.api.procedures.ProjectProcedures.removeProjectById;
@@ -33,17 +31,27 @@ public class CreateTaskTest extends BaseGUITest {
         login(currentUser.getUsername(), currentUser.getPassword());
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI", "single"})
-    public void createTask() {
+    @DataProvider(name = "columnsNamesList")
+    public static Object[][] getBoardColumnsName() {
+        return new Object[][]{
+                {ProjectBoardPage.BoardDefaultStatus.BACKLOG.getStatus()},
+                {ProjectBoardPage.BoardDefaultStatus.READY.getStatus()},
+                {ProjectBoardPage.BoardDefaultStatus.WIP.getStatus()},
+                {ProjectBoardPage.BoardDefaultStatus.DONE.getStatus()}
+        };
+    }
+
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI", "single"}, dataProvider = "columnsNamesList")
+    public void createTaskInColumn(String columnName) {
         var currentProject = project.get();
         var currentTaskName = taskName.get();
         ProjectBoardPage projectBoardPage = new ProjectBoardPage(currentProject.getId());
 
         projectBoardPage.open();
-        projectBoardPage.addTaskToBacklog(currentTaskName);
+        projectBoardPage.addTask(columnName, currentTaskName);
         projectBoardPage.addedTaskIsVisible(currentTaskName);
 
-        TaskPreviewBlock actualTaskPreview = projectBoardPage.getLastTaskInTheBacklogList();
+        TaskPreviewBlock actualTaskPreview = projectBoardPage.getLastTaskInTheColumn(columnName);
         actualTaskPreview.assertTaskName(currentTaskName);
     }
 
