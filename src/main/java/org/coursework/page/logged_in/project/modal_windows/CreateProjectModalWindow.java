@@ -1,9 +1,10 @@
-package org.coursework.page.logged_in.project;
+package org.coursework.page.logged_in.project.modal_windows;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.coursework.page.common.ModalWindow;
+import org.coursework.page.logged_in.project.ProjectPage;
 
 import static com.codeborne.selenide.Selenide.page;
 
@@ -14,10 +15,9 @@ public class CreateProjectModalWindow extends ModalWindow {
     private SelenideElement taskLimitInput = Selenide.$("input#form-task_limit");
 
     @Step
-    public ProjectPage createProjectOnlyRequiredFields(String name) {
+    public void createProjectOnlyRequiredFields(String name) {
         nameInput.sendKeys(name);
         submitButton.click();
-        return page(ProjectPage.class);
     }
 
     @Step

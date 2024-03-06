@@ -3,32 +3,23 @@ package org.coursework.page.logged_in;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.coursework.config.EnvConfig;
-import org.coursework.page.common.LoggedInPage;
-import org.coursework.page.logged_in.project.CreateProjectModalWindow;
+import org.coursework.base.BasePage;
+import org.coursework.page.logged_in.project.modal_windows.CreateProjectModalWindow;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
-
-public class DashboardPage extends LoggedInPage {
+public class DashboardPage extends BasePage {
     private SelenideElement search = Selenide.$("input#form-search");
     private SelenideElement newProjectButton = Selenide.$x("//section//a[@href='/project/create']");
 
-    @Step("User is logged in successfully")
-    public void searchVisible() {
-        confirmPageIsLoaded();
+    private CreateProjectModalWindow createProjectModalWindow = new CreateProjectModalWindow();
+
+    public DashboardPage() {
+        super("/dashboard");
     }
 
     @Step
-    public CreateProjectModalWindow openCreateProjectWindow() {
+    public void openCreateProjectWindow(String name) {
         newProjectButton.click();
-        return page(CreateProjectModalWindow.class);
-    }
-
-    @Step
-    @Override
-    public void openPage() {
-        open(EnvConfig.getEnvProperties().baseUrl + "/dashboard");
+        createProjectModalWindow.createProjectOnlyRequiredFields(name);
     }
 
     @Override

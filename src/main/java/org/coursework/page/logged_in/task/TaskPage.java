@@ -3,22 +3,22 @@ package org.coursework.page.logged_in.task;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.coursework.config.EnvConfig;
+import org.coursework.base.BasePage;
 import org.coursework.config.TextConfig;
-import org.coursework.page.common.LoggedInFilterPage;
+import org.coursework.page.logged_in.task.blocks.CommentBlock;
+import org.coursework.page.logged_in.task.modal_windows.AddCommentToTaskModalWindow;
+import org.coursework.page.logged_in.task.modal_windows.CloseTaskModalWindow;
+import org.coursework.utils.HTMLTags;
 import org.coursework.utils.Wait;
 import org.testng.Assert;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TaskPage extends LoggedInFilterPage {
-    private Integer taskId;
-    private int commentsNumber;
-    private final String commentSelector = "//div[contains(@id, 'comment-')]";
+public class TaskPage extends BasePage {
+    private String commentSelector = "//div[contains(@id, 'comment-')]";
 
     private SelenideElement taskSummaryBox = $("section#task-summary");
 
@@ -32,16 +32,26 @@ public class TaskPage extends LoggedInFilterPage {
     private SelenideElement textAreaCommentForm = $x("//textarea[@name='comment']");
     private SelenideElement submitButtonCommentForm = $x("//button[@type='submit']");
 
-    @Step
-    public CloseTaskModalWindow openCloseTaskModalWindow() {
-        closeTaskAction.click();
-        return page(CloseTaskModalWindow.class);
+    private CloseTaskModalWindow closeTaskModalWindow = new CloseTaskModalWindow();
+    private AddCommentToTaskModalWindow addCommentToTaskModalWindow = new AddCommentToTaskModalWindow();
+
+    public TaskPage(Integer taskId) {
+        super("/task/" + taskId);
     }
 
     @Step
-    public AddCommentToTaskModalWindow openAddCommentModalWindow() {
+    public void closeTask() {
+        closeTaskAction.click();
+        closeTaskModalWindow.confirmCloseAction();
+
+        Wait.sleep(2 * 1000);
+        Assert.assertEquals(statusLabel.getText(), TextConfig.getTextProperties().taskStatusClosedLabel, "Task status is not closed.");
+    }
+
+    @Step
+    public void addCommentWithoutEmailWithModalWindow(String comment) {
         addCommentAction.click();
-        return page(AddCommentToTaskModalWindow.class);
+        addCommentToTaskModalWindow.addCommentWithoutEmailWithModalWindow(comment);
     }
 
     @Step
@@ -52,34 +62,13 @@ public class TaskPage extends LoggedInFilterPage {
     }
 
     @Step
-    public void assertTaskIsClosed() {
-        Wait.sleep(3 * 1000);
-        Assert.assertEquals(statusLabel.getText(), TextConfig.getTextProperties().taskStatusClosedLabel, "Task status is not closed.");
+    public void addedCommentIsVisible(String commentText) {
+        findElementByText(HTMLTags.P, commentText);
     }
 
-    private List<CommentBlock> getCommentsOnPage() {
-        List<SelenideElement> elements = Selenide.$$x(commentSelector);
-        return elements.stream()
-                .map(CommentBlock::new)
-                .collect(Collectors.toList());
-    }
-
-    @Step
-    public void assertCommentTextIsSameAsExpected(String expectedCommentText) {
+    public CommentBlock getLastCommentInTheList() {
         List<CommentBlock> comments = getCommentsOnPage();
-        CommentBlock lastComment = comments.get(comments.size() - 1);
-        Assert.assertEquals(lastComment.text.text(), expectedCommentText, "Comment's text is not same as expected.");
-    }
-
-    @Step
-    public void assertCommentCreatorIsSameAsExpected(String expectedUsername) {
-        List<CommentBlock> comments = getCommentsOnPage();
-        CommentBlock lastComment = comments.get(comments.size() - 1);
-        Assert.assertEquals(lastComment.creator.text(), expectedUsername, "Comment's creator name is not same as expected.");
-    }
-
-    public void addedCommentIsVisible(){
-        $x(String.format("%s[%s]", commentSelector, commentsNumber)).shouldBe(visible);
+        return comments.get(comments.size() - 1);
     }
 
     @Override
@@ -87,21 +76,10 @@ public class TaskPage extends LoggedInFilterPage {
         return taskSummaryBox;
     }
 
-    @Step
-    @Override
-    public void openPage() {
-        open(EnvConfig.getEnvProperties().baseUrl + "/task/" + taskId);
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
-
-    public int getCommentsNumber() {
-        return commentsNumber;
-    }
-
-    public void setCommentsNumber(int commentsNumber) {
-        this.commentsNumber = commentsNumber;
+    private List<CommentBlock> getCommentsOnPage() {
+        List<SelenideElement> elements = Selenide.$$x(commentSelector);
+        return elements.stream()
+                .map(CommentBlock::new)
+                .collect(Collectors.toList());
     }
 }

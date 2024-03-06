@@ -1,4 +1,4 @@
-package org.coursework.page.logged_in.task;
+package org.coursework.page.logged_in.task.modal_windows;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -13,9 +13,8 @@ public class CloseTaskModalWindow extends ModalWindow {
     private SelenideElement submitButton = Selenide.$x("//div[@id='modal-overlay']//button[@id='modal-confirm-button']");
 
     @Step
-    public TaskPage confirmCloseAction() {
+    public void confirmCloseAction() {
         submitButton.shouldBe(visible);
         submitButton.click();
-        return page(TaskPage.class);
     }
 }

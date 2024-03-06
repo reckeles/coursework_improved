@@ -8,8 +8,6 @@ import org.coursework.page.logged_in.DashboardPage;
 import org.coursework.page.auth.LoginPage;
 import org.openqa.selenium.WebDriver;
 
-import static com.codeborne.selenide.Selenide.page;
-
 public abstract class BaseGUITest {
 
     protected final User ADMIN = User.builder()
@@ -26,12 +24,12 @@ public abstract class BaseGUITest {
         Session.get().close();
     }
 
-    protected DashboardPage login(String username, String password) {
+    protected void login(String username, String password) {
         LoginPage loginPage = new LoginPage();
-        DashboardPage dashboardPage = new DashboardPage();
         loginPage.login(username, password);
-        dashboardPage.searchVisible();
-        return page(DashboardPage.class);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.confirmPageIsLoaded();
     }
 
     private WebDriver wd() {

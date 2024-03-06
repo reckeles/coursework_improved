@@ -1,37 +1,56 @@
 package org.coursework.base;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
+import org.coursework.config.EnvConfig;
+import org.coursework.utils.HTMLTags;
 import org.coursework.utils.Wait;
-import org.openqa.selenium.WebDriver;
-import org.coursework.Session;
 
 import java.time.Instant;
 
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
+
 public abstract class BasePage {
+    private int timeout = 5;
+    private final String pageUrl;
 
-    public abstract void openPage();
+    public BasePage(String relativeUrl) {
+        this.pageUrl = EnvConfig.getEnvProperties().baseUrl + relativeUrl;
+    }
 
+    public BasePage(String relativeUrl, Integer itemId) {
+        Wait.sleep(2 * 1000); //TODO refactor
+        if (itemId == null) {
+            itemId = getItemIdFromUrl();
+        }
+        this.pageUrl = EnvConfig.getEnvProperties().baseUrl + relativeUrl + itemId;
+    }
+
+    @Step
+    public void open() {
+        Selenide.open(pageUrl);
+        confirmPageIsLoaded();
+    }
+
+    @Step
     public void confirmPageIsLoaded() {
-        if (!isPageLoaded(5))
+        if (!isPageLoaded(timeout)) {
             throw new RuntimeException("Could not confirm that page is loaded: "
                     + getClass().getSimpleName());
+        }
+    }
+
+    protected void findElementByText(HTMLTags tag, String text) {
+        String sel = String.format("//%s[contains(text(), '%s')]", tag.getName(), text);
+        $x(sel).shouldBe(visible);
     }
 
     protected abstract SelenideElement readyElement();
 
-//    protected WebDriver wd() {
-//        return Session.get().getWebDriver();
-//    }
-
-    private Boolean customConfirm() {
-        return null;
-    }
-
-    private boolean isPageLoaded(int timeoutSec) {
-        Boolean customConfirm = customConfirm();
-        if (customConfirm != null) {
-            return customConfirm;
-        }
+    protected boolean isPageLoaded(int timeoutSec) {
         boolean result = false;
 
         long timeout = Instant.now().getEpochSecond() + timeoutSec;
@@ -42,5 +61,11 @@ public abstract class BasePage {
             Wait.sleep(500);
         }
         return result;
+    }
+
+    protected Integer getItemIdFromUrl() {
+        String url = WebDriverRunner.url();
+        String[] splitURL = url.split("/");
+        return Integer.parseInt(splitURL[splitURL.length - 1]);
     }
 }

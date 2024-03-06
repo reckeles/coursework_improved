@@ -3,8 +3,8 @@ package org.coursework.ui.task;
 import org.coursework.base.BaseGUITest;
 import org.coursework.api.model.project.Project;
 import org.coursework.api.model.user.User;
-import org.coursework.page.logged_in.board.BoardPage;
-import org.coursework.page.logged_in.board.CreateTaskModalWindow;
+import org.coursework.page.logged_in.project_board.ProjectBoardPage;
+import org.coursework.page.logged_in.project_board.blocks.TaskPreviewBlock;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,6 +18,7 @@ import static org.coursework.utils.TestData.*;
 public class CreateTaskTest extends BaseGUITest {
     private ThreadLocal<User> user = new ThreadLocal<>();
     private ThreadLocal<Project> project = new ThreadLocal<>();
+    private ThreadLocal<String> taskName = new ThreadLocal<>();
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
@@ -26,24 +27,24 @@ public class CreateTaskTest extends BaseGUITest {
 
         project.set(createProject(generateProjectWithOwnerData(currentUser.getId()), currentUser));
 
-        setWebDriver();
+        taskName.set(getRandomStr());
 
+        setWebDriver();
         login(currentUser.getUsername(), currentUser.getPassword());
     }
 
     @Test(groups = {"CRUD_task_UI", "UI", "smoke_UI", "single"})
     public void createTask() {
         var currentProject = project.get();
+        var currentTaskName = taskName.get();
+        ProjectBoardPage projectBoardPage = new ProjectBoardPage(currentProject.getId());
 
-        BoardPage boardPage = new BoardPage();
-        boardPage.setProjectId(currentProject.getId());
-        boardPage.openPage();
-        String taskName = getRandomStr();
-        CreateTaskModalWindow createTaskModalWindow = boardPage.openAddTaskFormFromBacklog();
-        boardPage = createTaskModalWindow.createTaskOnlyRequiredFields(taskName, boardPage);
-        boardPage.setTasksNumberInBacklog(boardPage.getTasksNumberInBacklog() + 1);
-        boardPage.addedTaskIsVisible();
-        boardPage.assertLastTaskNameIsRightBacklogColumn(taskName);
+        projectBoardPage.open();
+        projectBoardPage.addTaskToBacklog(currentTaskName);
+        projectBoardPage.addedTaskIsVisible(currentTaskName);
+
+        TaskPreviewBlock actualTaskPreview = projectBoardPage.getLastTaskInTheBacklogList();
+        actualTaskPreview.assertTaskName(currentTaskName);
     }
 
     @AfterMethod(alwaysRun = true)

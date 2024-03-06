@@ -2,7 +2,8 @@ package org.coursework.ui.task;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.page.logged_in.task.TaskPage;
-import org.coursework.page.logged_in.task.AddCommentToTaskModalWindow;
+import org.coursework.page.logged_in.task.blocks.CommentBlock;
+import org.coursework.page.logged_in.task.modal_windows.AddCommentToTaskModalWindow;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,6 +22,7 @@ public class CommentsTaskTest extends BaseGUITest {
     private ThreadLocal<User> user = new ThreadLocal<>();
     private ThreadLocal<Project> project = new ThreadLocal<>();
     private ThreadLocal<Task> task = new ThreadLocal<>();
+    private ThreadLocal<String> commentText = new ThreadLocal<>();
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
@@ -32,8 +34,9 @@ public class CommentsTaskTest extends BaseGUITest {
 
             task.set(createTask(generateDefaultTaskData(currentProject.getId()), currentUser));
 
-            setWebDriver();
+            commentText.set(getRandomStr());
 
+            setWebDriver();
             login(currentUser.getUsername(), currentUser.getPassword());
     }
 
@@ -41,37 +44,32 @@ public class CommentsTaskTest extends BaseGUITest {
     public void addCommentViaModalWindow() {
         var currentTask = task.get();
         var currentUser = user.get();
+        var currentCommentText = commentText.get();
+        TaskPage taskPage = new TaskPage(currentTask.getId());
 
-        TaskPage taskPage = new TaskPage();
-        taskPage.setTaskId(currentTask.getId());
-        taskPage.openPage();
-        AddCommentToTaskModalWindow addCommentToTaskModalWindow = taskPage.openAddCommentModalWindow();
+        taskPage.open();
+        taskPage.addCommentWithoutEmailWithModalWindow(currentCommentText);
+        taskPage.addedCommentIsVisible(currentCommentText);
 
-        String comment = getRandomStr();
-        taskPage = addCommentToTaskModalWindow.addCommentWithoutEmail(comment, taskPage);
-        taskPage.setCommentsNumber(taskPage.getCommentsNumber() + 1);
-        taskPage.addedCommentIsVisible();
-
-        taskPage.assertCommentCreatorIsSameAsExpected(currentUser.getName());
-        taskPage.assertCommentTextIsSameAsExpected(comment);
+        CommentBlock actualComment = taskPage.getLastCommentInTheList();
+        actualComment.assertCreatorName(currentUser.getName());
+        actualComment.assertText(currentCommentText);
     }
 
     @Test(groups = {"CRUD_task_UI", "UI"})
     public void addCommentViaFormOnTaskPage() {
         var currentTask = task.get();
         var currentUser = user.get();
+        var currentCommentText = commentText.get();
+        TaskPage taskPage = new TaskPage(currentTask.getId());
 
-        TaskPage taskPage = new TaskPage();
-        taskPage.setTaskId(currentTask.getId());
-        taskPage.openPage();
+        taskPage.open();
+        taskPage.addComment(currentCommentText);
+        taskPage.addedCommentIsVisible(currentCommentText);
 
-        String comment = getRandomStr();
-        taskPage.addComment(comment);
-        taskPage.setCommentsNumber(taskPage.getCommentsNumber() + 1);
-        taskPage.addedCommentIsVisible();
-
-        taskPage.assertCommentCreatorIsSameAsExpected(currentUser.getName());
-        taskPage.assertCommentTextIsSameAsExpected(comment);
+        CommentBlock actualComment = taskPage.getLastCommentInTheList();
+        actualComment.assertCreatorName(currentUser.getName());
+        actualComment.assertText(currentCommentText);
     }
 
     @AfterMethod(alwaysRun = true)
@@ -86,5 +84,7 @@ public class CommentsTaskTest extends BaseGUITest {
 
         removeUserById(currentUser.getId(), ADMIN);
         user.remove();
+
+        commentText.remove();
     }
 }
