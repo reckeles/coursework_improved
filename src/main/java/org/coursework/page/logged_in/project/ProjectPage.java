@@ -5,11 +5,13 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.coursework.base.BasePage;
 import org.coursework.config.EnvConfig;
+import org.coursework.utils.HTMLTags;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.coursework.config.TextConfig.getTextProperties;
+import static org.coursework.utils.HTMLTags.SPAN;
 
 public class ProjectPage extends BasePage {
     private SelenideElement projectStatusLabel = $x("//ul[@class='panel']/li[1]/strong");
@@ -29,7 +31,7 @@ public class ProjectPage extends BasePage {
 
     @Step
     public void projectNameIsVisible(String taskName) {
-        findElementByText("span", taskName);
+        findElementByText(HTMLTags.SPAN, taskName);
     }
 
     @Step

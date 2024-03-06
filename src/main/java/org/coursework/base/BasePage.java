@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.coursework.config.EnvConfig;
+import org.coursework.utils.HTMLTags;
 import org.coursework.utils.Wait;
 
 import java.time.Instant;
@@ -42,8 +43,8 @@ public abstract class BasePage {
         }
     }
 
-    protected void findElementByText(String tag, String text) { //TODO - String tag to enum??
-        String sel = String.format("//%s[contains(text(), '%s')]", tag, text);
+    protected void findElementByText(HTMLTags tag, String text) {
+        String sel = String.format("//%s[contains(text(), '%s')]", tag.getName(), text);
         $x(sel).shouldBe(visible);
     }
 

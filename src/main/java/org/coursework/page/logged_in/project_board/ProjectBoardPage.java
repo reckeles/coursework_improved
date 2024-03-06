@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import org.coursework.base.BasePage;
 import org.coursework.page.logged_in.project_board.blocks.TaskPreviewBlock;
 import org.coursework.page.logged_in.project_board.modal_windows.CreateTaskModalWindow;
+import org.coursework.utils.HTMLTags;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class ProjectBoardPage extends BasePage {
 
     @Step
     public void addedTaskIsVisible(String taskName) {
-        findElementByText("a", taskName);
+        findElementByText(HTMLTags.A, taskName);
     }
 
     public TaskPreviewBlock getLastTaskInTheBacklogList() {

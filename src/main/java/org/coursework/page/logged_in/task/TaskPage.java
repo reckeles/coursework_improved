@@ -8,6 +8,7 @@ import org.coursework.config.TextConfig;
 import org.coursework.page.logged_in.task.blocks.CommentBlock;
 import org.coursework.page.logged_in.task.modal_windows.AddCommentToTaskModalWindow;
 import org.coursework.page.logged_in.task.modal_windows.CloseTaskModalWindow;
+import org.coursework.utils.HTMLTags;
 import org.coursework.utils.Wait;
 import org.testng.Assert;
 
@@ -62,7 +63,7 @@ public class TaskPage extends BasePage {
 
     @Step
     public void addedCommentIsVisible(String commentText) {
-        findElementByText("p", commentText);
+        findElementByText(HTMLTags.P, commentText);
     }
 
     public CommentBlock getLastCommentInTheList() {
